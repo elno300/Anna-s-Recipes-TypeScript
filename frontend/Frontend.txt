@@ -1,0 +1,31 @@
+npm uninstall react react-dom
+npm install react@18 react-dom@18
+npx create-next-app@latest my-next-app --typescript
+
+{
+	"env": {
+		"node": true
+	},
+	"extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+	"parser": "@typescript-eslint/parser",
+	"plugins": ["@typescript-eslint"],
+	"root": true
+}
+
+mkdir backend
+cd backend
+npm init -y
+npm install express
+touch index.js
+echo "node_modules" >> .gitignore
+cd ..
+
+mkdir fullstack-ish
+cd fullstack-ish
+git init
+
+cd backend
+npm run --prefix ../frontend build
+rm -Rf dist
+cp -R ../frontend/dist .
+echo "dist" >> .gitignore

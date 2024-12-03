@@ -1,0 +1,29 @@
+[
+	{
+		"id": 1,
+		"name": "Bouillabaisse",
+		"cook_time": "45 min",
+		"description": "Bouillabaisse är en fransk fisksoppa från Provence, känd för sin rika smak och användning av färska fiskar, skaldjur och kryddor.",
+		"img_url": "image1",
+		"servings": 4,
+		"course_name": "Soppa"
+	},
+	{
+		"id": 2,
+		"name": "Ärt- och löksoppa",
+		"cook_time": "20 min",
+		"description": "En enkel och läcker soppa med gröna ärter och lök, perfekt för en snabb måltid.",
+		"img_url": "image2",
+		"servings": 4,
+		"course_name": "Soppa"
+	},
+	{
+		"id": 90,
+		"name": "Spagetti med köttfärsås",
+		"cook_time": "30",
+		"description": "Favoritmat nummer ett! Alla - oavsett ålder - älskar spaghetti och köttfärssås! Här är ett smakfullt och pålitligt recept som du lyckas med. Servera gärna med riven parmesanost.",
+		"img_url": "image1",
+		"servings": 3,
+		"course_name": "Pasta"
+	}
+]
