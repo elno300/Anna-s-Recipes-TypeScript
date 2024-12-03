@@ -1,0 +1,8 @@
+// Show number of inserts
+select count(*) from recipes;
+
+select * from recipes where id = 1;
+
+//remove more then one inserts/ recipes. 
+delete from recipes where id between 5 and 70;
+DELETE 37
