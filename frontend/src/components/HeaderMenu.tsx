@@ -3,18 +3,12 @@ import styles from '@/components/HeaderMenu.module.css';
 import { useEffect, useState } from 'react';
 import classnames from 'classnames';
 import Link from 'next/link';
-// import localFont from 'next/font/local';
-// import avant from '../assets/font/avantgarde/AVGARDD_2';
-// import { useNavigate } from 'react-router-dom';
-// npm install react-router-dom
-
-// import RecipeForm from './RecipeForm';
 
 function HeaderMenu() {
-	const [isScrolled, setIsScrolled] = useState(false);
 	const [lastScrollTop, setLastScrollTop] = useState(0);
-	// const [currentScrollPos, setCurrentScrollPos] = useState(window.scrollY);
+	const [isScrolled, setIsScrolled] = useState(false);
 	const [isHidden, setIsHidden] = useState(false);
+
 	useEffect(() => {
 		const handleScroll = () => {
 			const currentScrollPos = window.scrollY;
@@ -42,49 +36,17 @@ function HeaderMenu() {
 		};
 	}, [lastScrollTop]);
 
-	// useEffect(() => {
-	// 	const handleScroll = () => {
-	// 		const currentScrollPos = window.scrollY;
-	// 		console.log('currentScrollPos :>> ', currentScrollPos);
-	// 		if (window.scrollY > 10) {
-	// 			setIsScrolled(true);
-	// 		} else {
-	// 			setIsScrolled(false);
-	// 		}
-
-	// 		if (currentScrollPos > lastScrollTop + 10) {
-	// 			setIsHidden(true);
-	// 		} else if (currentScrollPos < lastScrollTop - 3) {
-	// 			setIsHidden(false);
-	// 		} else if (currentScrollPos === 0) {
-	// 			setIsHidden(false);
-	// 		}
-
-	// 		setLastScrollTop(currentScrollPos);
-	// 	};
-	// 	window.addEventListener('scroll', handleScroll);
-	// 	console.log(isScrolled);
-	// 	return () => {
-	// 		window.removeEventListener('scroll', handleScroll);
-	// 	};
-	// }, [lastScrollTop]);
-
-	// const isHiddenAndScrolled = isHidden && isScrolled;
-
 	return (
 		<section
 			className={classnames(
 				styles.header,
-				// isHiddenAndScrolled && styles.hiddenAndTransparent,
-				// isScrolled && styles.transparentWindow,
 				isScrolled && styles.transparentWindow,
 				isHidden && styles.hidden
-				// isHidden ? styles.hidden : isScrolled && styles.transparentWindow
 			)}
 		>
 			<section className={styles.navbarWrapper}>
 				<nav className="flex">
-					<section className="flex-grow avantgarde">
+					<section className="flex-grow font-magic">
 						<Link rel="stylesheet" href="/">
 							<b>Annas Recept</b>
 						</Link>

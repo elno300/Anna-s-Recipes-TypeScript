@@ -15,6 +15,12 @@ const avenirThin = localFont({
 	weight: '100 900',
 });
 
+const sugarMagic = localFont({
+	src: '../assets/font/SugarMagic.ttf',
+	variable: '--sygar-magic',
+	weight: ' 200, 400, 600',
+});
+
 export const metadata: Metadata = {
 	title: 'Recipes app',
 	description: 'Annas amazing recipes',
@@ -32,7 +38,7 @@ export default function RootLayout({
 					className={`${avenirNext.variable} ${avenirThin.variable} antialiased`}
 				>
 					<HeaderMenu></HeaderMenu>
-					<main className="bg-purple-200">{children}</main>
+					<main className="">{children}</main>
 				</body>
 			</RecipeProvider>
 		</html>
