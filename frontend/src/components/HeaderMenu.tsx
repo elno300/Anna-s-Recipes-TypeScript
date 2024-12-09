@@ -53,10 +53,22 @@ function HeaderMenu() {
 							<b>Annas Recept</b>
 						</Link>
 					</section>
-					<section className=" text-lg gap-7 sm:flex hidden justify-end items-center uppercase font-avant">
-						<Link href="/addRecipe">Skapa recept</Link>
-						<Link href="/favorites">Favoriter</Link>
-						<Link href="/login">Login</Link>
+					<section className=" text-lg gap-7 sm:flex hidden justify-end items-center uppercase font-avant  ">
+						<Link
+							href="/addRecipe"
+							className="underline-offset-4 hover:underline"
+						>
+							Skapa recept
+						</Link>
+						<Link
+							href="/favorites"
+							className="underline-offset-4 hover:underline"
+						>
+							Favoriter
+						</Link>
+						<Link href="/login" className="underline-offset-4 hover:underline">
+							Login
+						</Link>
 					</section>
 				</nav>
 			</section>
