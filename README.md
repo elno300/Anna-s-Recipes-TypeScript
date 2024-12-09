@@ -64,3 +64,18 @@ Välj <i>"E2E testing"</i> i cypress, välj valfri webbläsare och välj spec.cy
 <b>Readme-fil</b> som berättar vilka krav som uppnåtts och hur man kan få igång projektet.
 
 En sak jag insåg, det är att testen inte funkar om man raderar alla recept. Det tar jag med mig till nästa projekt!
+
+## Changelog
+
+2024-12-03 - Tisdag
+Jag la till komponenter för en hero bild, samt en header komponent med en nav bar som leder till olika sidor. Jag la in formuläret på en egen sida istället för att den ligger under en knapp.
+Styling - Animationer och transitions på headern, [min inspirationssida](https://folksinterior.se/).
+
+2024-12-04 - Onsdag
+Planering av projekt och idé
+Jag tog fram ett flow-chart för användar flödet, samt Er-diagram för databasen, jag har också skrivit om databasen för en större sida.
+Sidan behöver utöver det som redan finns sidor/komopnenter/tabeller/endpoints och funktionalitet för sign up, inlogg, visa ett helt recept, sparade/favorit recept. Jag implementerade biblioteket Multer som gör att man kan lägga till en bild i formuläret när man postar ett nytt recept och att det sparas i en mapp i databasen.
+
+2024-12-05 - Torsdag
+Lektion 9-11
+För att slippa spara onödigt tunga filer så implementerade jag en fil/bildomvandlare som gör om bilder i frontend

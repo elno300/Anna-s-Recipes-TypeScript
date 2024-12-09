@@ -17,7 +17,13 @@ const avenirThin = localFont({
 
 const sugarMagic = localFont({
 	src: '../assets/font/SugarMagic.ttf',
-	variable: '--sygar-magic',
+	variable: '--sugar-magic',
+	weight: ' 200, 400, 600',
+});
+
+const avant = localFont({
+	src: '../assets/font/avantgarde/AVGARDD_2.ttf',
+	variable: '--avant',
 	weight: ' 200, 400, 600',
 });
 
@@ -33,11 +39,15 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
+			<meta
+				name="viewport"
+				content="width=device-width, initial-scale=1.0"
+			></meta>
 			<RecipeProvider>
 				<body
-					className={`${avenirNext.variable} ${avenirThin.variable} antialiased`}
+					className={`${avenirNext.variable} ${avenirThin.variable} ${sugarMagic.variable} ${avant.variable} antialiased`}
 				>
-					<HeaderMenu></HeaderMenu>
+					<HeaderMenu />
 					<main className="">{children}</main>
 				</body>
 			</RecipeProvider>

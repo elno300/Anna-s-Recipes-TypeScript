@@ -6,11 +6,20 @@ const nextConfig: NextConfig = {
 		return [
 			{
 				source: '/api/:path*',
-				destination: 'https://localhost:3000/api/:path*',
+				destination: 'http://localhost:3000/api/:path*',
 			},
 		];
+	},
+	images: {
+		remotePatterns: [
+			{
+				protocol: 'http',
+				hostname: 'localhost',
+				port: '3000', // Din backend-port
+				pathname: '/uploads/**', // Matcha URL-sökvägen till dina uppladdade filer
+			},
+		],
 	},
 };
 
 export default nextConfig;
-

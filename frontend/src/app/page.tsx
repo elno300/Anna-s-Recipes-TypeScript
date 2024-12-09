@@ -2,7 +2,6 @@
 import { useState, useEffect, useContext } from 'react';
 import RecipeCard from '@/components/RecipeCard';
 import { RecipeInterface } from '@/utils/interface';
-// import RecipeForm from '@/components/RecipeForm';
 import Context from '@/Context';
 import HeroModule from '@/components/HeroModule';
 
@@ -24,17 +23,17 @@ export default function Home() {
 			});
 	}, [newRecipe]);
 
-	const numberOfRecipes: number = recipes.length;
+	// const numberOfRecipes: number = recipes.length;
 
 	return (
 		<>
 			<HeroModule />
-			<section className=" w-screen justify-center p-[45px]">
+			<section className=" w-screen justify-center ">
 				{/* <RecipeForm /> */}
-				<p>
+				{/* <p>
 					<span>{numberOfRecipes}</span>:a recept
-				</p>
-				<section className="flex flex-wrap justify-center gap-4 p-4">
+				</p> */}
+				<section className="flex flex-wrap justify-center gap-4 pt-4 pb-8">
 					{recipes &&
 						recipes.map((recipe) => (
 							<RecipeCard

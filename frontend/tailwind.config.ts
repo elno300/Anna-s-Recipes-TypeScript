@@ -11,6 +11,7 @@ export default {
 		extend: {
 			fontFamily: {
 				magic: ['sugarMagic', 'serif'],
+				avant: ['avant', 'san-serif'],
 			},
 			colors: {
 				background: 'hsl(var(--background))',

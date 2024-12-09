@@ -81,3 +81,26 @@ export const deleteRecipe = async (_request: Request, response: Response) => {
 			.json({ error: 'Det gick inte att ta bort receptet' });
 	}
 };
+
+// app.post(
+// 	'/api/new-recipe2',
+// 	upload.single('image'),
+// 	(req: Request, res: Response) => {
+// 		// Här kan du få tillgång till både textdata och filen
+// 		const { name, cook_time, description, servings, course_id } = req.body;
+// 		const img_url = req.file ? req.file.path : null; // Spara sökvägen till filen
+
+// 		// Här kan du spara dessa data i din databas, eller göra något med filen
+// 		const newRecipe = {
+// 			name,
+// 			cook_time,
+// 			description,
+// 			img_url, // Bildens sökväg
+// 			servings,
+// 			coures: course_id,
+// 		};
+
+// 		// Simulera att spara i databas och skicka tillbaka data
+// 		res.json(newRecipe);
+// 	}
+// );

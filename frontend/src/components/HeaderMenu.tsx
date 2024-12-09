@@ -15,6 +15,7 @@ function HeaderMenu() {
 			const isScrollingDown = currentScrollPos > lastScrollTop + 10;
 			const isScrollingUp = currentScrollPos < lastScrollTop - 3;
 
+			// om nuvarande scroll position i y led är större än den senaste plus 10 pixlar så försvinner headern on scroll.
 			if (isScrollingDown) {
 				setIsHidden(true);
 			} else if (isScrollingUp || currentScrollPos === 0) {
@@ -23,6 +24,7 @@ function HeaderMenu() {
 
 			setLastScrollTop(currentScrollPos);
 
+			// När scroll i y-led är mer än 10 pixlar så får headern ett bakgrundsfilter
 			if (window.scrollY > 10) {
 				setIsScrolled(true);
 			} else {
@@ -46,12 +48,12 @@ function HeaderMenu() {
 		>
 			<section className={styles.navbarWrapper}>
 				<nav className="flex">
-					<section className="flex-grow font-magic">
+					<section className="flex-grow font-magic text-4xl md:text-[3rem] lg:text-[3.6rem] ">
 						<Link rel="stylesheet" href="/">
 							<b>Annas Recept</b>
 						</Link>
 					</section>
-					<section className=" text-lg w-5/12 flex gap-7 justify-end items-center">
+					<section className=" text-lg gap-7 sm:flex hidden justify-end items-center uppercase font-avant">
 						<Link href="/addRecipe">Skapa recept</Link>
 						<Link href="/favorites">Favoriter</Link>
 						<Link href="/login">Login</Link>
