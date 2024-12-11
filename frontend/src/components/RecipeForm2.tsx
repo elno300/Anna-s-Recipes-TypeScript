@@ -1,10 +1,8 @@
 'use client';
 import Context from '@/Context';
 import { useContext, useState } from 'react';
-// import styles from './RecipeForm.module.css';
 import classnames from 'classnames';
 import Image from 'next/image';
-
 import { Button } from './ui/button';
 import imageCompression from 'browser-image-compression';
 
@@ -25,25 +23,23 @@ export default function RecipeForm1() {
 	const [description, setDescription] = useState<string>('');
 	const [image, setImage] = useState<File | null>(null);
 	const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-
 	const context = useContext(Context);
 	const { setNewRecipe } = context;
 
 	// Hantera filuppladdning
 	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const file = event.target.files?.[0] || null;
-		setImage(file);
 
 		if (file) {
 			// Skapa en temporär URL för att visa bilden
 			const url = URL.createObjectURL(file);
 			setPreviewUrl(url);
+			setImage(file);
 		}
 	};
 
 	//Function to compress image in browser before posting to backend.
 	async function handleImageUpload(img: File) {
-		// const imageFile = event.target.files?.[0];
 		console.log('originalFile instanceof Blob', img instanceof Blob); // true
 		console.log(`originalFile size ${img.size / 1024 / 1024} MB`);
 
@@ -62,7 +58,6 @@ export default function RecipeForm1() {
 				`compressedFile size ${compressedFile.size / 1024 / 1024} MB`
 			); // smaller than maxSizeMB
 			return compressedFile;
-			// await uploadToServer(compressedFile); // write your own logic
 		} catch (error) {
 			console.log(error, 'Det gick inte att omvandla bilden');
 		}
@@ -82,13 +77,20 @@ export default function RecipeForm1() {
 		formData.append('description', description);
 		formData.append('servings', servings);
 		formData.append('course_id', category);
+		// formData.append('user_id', userId);
 
 		if (image) {
-			console.log(image);
+			console.log('Händer detta?????', image);
 			const newImg = await handleImageUpload(image);
-			// const data = await handleImageUpload(image);
-			// console.log(data);
-			formData.append('image', newImg); // Lägg till filen
+			if (newImg) {
+				// Skapa en fil från Blob om det behövs
+				const file = new File([newImg], image.name || 'compressed-image.jpg', {
+					type: newImg.type,
+				});
+				formData.append('image', file); // Lägg till filen
+			} else {
+				console.error('Bilden kunde inte laddas upp korrekt.');
+			}
 		}
 
 		try {
@@ -111,7 +113,7 @@ export default function RecipeForm1() {
 			setCategory('');
 			setServings('');
 			setDescription('');
-			setImage(null); // Återställ bild
+			setImage(null);
 		} catch (error) {
 			console.error('Det gick inte att skapa recept:', error);
 		}
@@ -127,7 +129,6 @@ export default function RecipeForm1() {
 				)}
 				encType="multipart/form-data" // Viktigt att sätta denna för uppladdning av filer
 			>
-				{/* Här är dina fält */}
 				<div className="flex flex-wrap -mx-3 mb-6">
 					<div className="w-full px-3">
 						<label
@@ -154,17 +155,19 @@ export default function RecipeForm1() {
 					>
 						Lägg till bild:
 					</label>
-					{image ? (
-						<Image
-							// src={`../../../backend/uploads/${toString,image}`}
-							src={previewUrl}
-							width={400}
-							height={400}
-							alt="Picture of food"
-							className="mb-2  bg-gray-200 items-center justify-center border border-gray-300 rounded-lg cover overflow-hidden"
-						></Image>
+					{previewUrl ? (
+						<div className="rounded-lg overflow-hidden w-full sm:w-[400px] h-[250px]">
+							<Image
+								src={previewUrl}
+								width={400}
+								height={300}
+								alt="Picture of food"
+								className="mb-2 bg-gray-200 items-center justify-center border border-gray-300 rounded-lg cover overflow-hidden"
+								objectFit="cover"
+							></Image>
+						</div>
 					) : (
-						<div className="w-[400px] h-[400px] bg-gray-200 flex items-center justify-center border border-gray-300 rounded-lg mb-2">
+						<div className="sm:w-[400px] h-[250px] w-full bg-gray-100 flex items-center justify-center border border-gray-300 rounded-lg mb-2 text-gray-400 ">
 							<span>Välj en bild</span>
 						</div>
 					)}
@@ -174,6 +177,7 @@ export default function RecipeForm1() {
 						onChange={handleFileChange}
 						className="
 						appearance-none block py-3 mb-4 leading-tight focus:outline-none "
+						onClick={() => document.getElementById('image')?.click()}
 					/>
 				</div>
 				<div className="flex flex-wrap -mx-3 mb-6">
@@ -232,7 +236,6 @@ export default function RecipeForm1() {
 							className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 rounded-lg"
 							value={servings}
 							onChange={(event) => setServings(event.target.value)}
-							aria-placeholder="hej"
 						>
 							<option value="" disabled className="ttext-gray-400 ">
 								Välj ett nummer
@@ -251,7 +254,7 @@ export default function RecipeForm1() {
 							htmlFor="description"
 							className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
 						>
-							Beskrivning:
+							Kort beskrivning:
 						</label>
 						<textarea
 							id="description"

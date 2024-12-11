@@ -57,8 +57,16 @@ app.post(
 	'/api/new-recipe2',
 	upload.single('image'),
 	async (req: Request, response: Response) => {
-		const { name, cook_time, description, servings, course_id } = req.body;
-		// const img_url = req.file ? req.file.path : null;
+		const {
+			name,
+			cook_time,
+			description,
+			servings,
+			course_id,
+			instructions,
+			ingridients,
+		} = req.body;
+
 		const img_url = req.file ? `${req.file.filename}` : null;
 		console.log('Bildens sökväg i backend,', img_url);
 

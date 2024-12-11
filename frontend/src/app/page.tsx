@@ -4,6 +4,7 @@ import RecipeCard from '@/components/RecipeCard';
 import { RecipeInterface } from '@/utils/interface';
 import Context from '@/Context';
 import HeroModule from '@/components/HeroModule';
+import styles from './page.module.css';
 
 export default function Home() {
 	const [recipes, setRecipes] = useState<RecipeInterface[]>([]);
@@ -15,33 +16,51 @@ export default function Home() {
 	const { newRecipe } = context;
 
 	useEffect(() => {
-		fetch('http://localhost:3000/api/recipes')
-			.then((response) => response.json())
-			.then((result: RecipeInterface[]) => {
-				console.log(result[0].name);
+		const fetchRecipes = async () => {
+			try {
+				const response = await fetch('http://localhost:3000/api/recipes');
+				if (!response.ok) {
+					throw new Error(`HTTP-fel! Status: ${response.status}`);
+				}
+				const result: RecipeInterface[] = await response.json();
 				setRecipes(result);
-			});
+			} catch (error) {
+				console.error('Ett fel uppstod vid hämtning av recept:', error);
+			}
+		};
+
+		fetchRecipes();
 	}, [newRecipe]);
 
-	// const numberOfRecipes: number = recipes.length;
+	const numberOfRecipes: number = recipes.length;
 
 	return (
 		<>
 			<HeroModule />
-			<section className=" w-screen justify-center ">
-				{/* <RecipeForm /> */}
+			<section className=" w-screen justify-center">
 				{/* <p>
 					<span>{numberOfRecipes}</span>:a recept
 				</p> */}
+				<section className={styles.pageTitle}>
+					<h2 className="text-2xl font-avant block uppercase">
+						Blandade recept{' '}
+					</h2>
+					<p className="align-bottom">
+						(<span> {numberOfRecipes}</span> st)
+					</p>
+				</section>
 				<section className="flex flex-wrap justify-center gap-4 pt-4 pb-8">
-					{recipes &&
+					{recipes[0] ? (
 						recipes.map((recipe) => (
 							<RecipeCard
 								className="recipe-card"
 								key={recipe.id}
 								recipe={recipe}
 							/>
-						))}
+						))
+					) : (
+						<p className="text-xl">Laddar recept...</p>
+					)}
 				</section>
 			</section>
 		</>

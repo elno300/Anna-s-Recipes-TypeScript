@@ -10,6 +10,11 @@ const defaultContextValue: ContextType = {
 	setNewRecipe: () => {},
 };
 
+// interface ContextType {
+// 	setNewRecipe: (title: string) => void;
+// 	userId: string | number | null;
+// }
+
 const Context = createContext<ContextType>(defaultContextValue);
 
 export default Context;
