@@ -80,6 +80,7 @@
 // });
 
 /* eslint-disable */
+// import { defineConfig } from 'cypress';
 
 const createBundler = require('@bahmutov/cypress-esbuild-preprocessor');
 const {
@@ -108,5 +109,12 @@ module.exports = defineConfig({
 			// Tillägg för Cucumber
 			'cypress/e2e/**/*.feature',
 		],
+	},
+
+	component: {
+		devServer: {
+			framework: 'react',
+			bundler: 'webpack',
+		},
 	},
 });

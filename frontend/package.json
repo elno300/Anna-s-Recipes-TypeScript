@@ -6,7 +6,11 @@
 		"dev": "next dev -p 4000",
 		"build": "next build",
 		"start": "next start",
-		"lint": "next lint"
+		"lint": "next lint",
+		"e2e": "start-server-and-test dev http://localhost:4000 \"cypress open --e2e\"",
+		"e2e:headless": "start-server-and-test dev http://localhost:4000 \"cypress run --e2e\"",
+		"component": "cypress open --component",
+		"component:headless": "cypress run --component"
 	},
 	"dependencies": {
 		"@radix-ui/react-alert-dialog": "^1.1.2",
@@ -31,7 +35,7 @@
 		"@types/react": "^18",
 		"@types/react-dom": "^18",
 		"babel-plugin-styled-components": "^2.1.4",
-		"cypress": "^13.16.0",
+		"cypress": "^13.16.1",
 		"eslint": "^8",
 		"eslint-config-next": "15.0.3",
 		"next": "^15.0.3",
