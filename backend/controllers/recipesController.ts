@@ -20,7 +20,7 @@ interface CreateRecipes {
 	servings?: number;
 	course_id?: number;
 	instructions: string[];
-	ingredients: Array<{ amount: string; unit: string; ingredient: string }>;
+	ingredients: string[];
 	user_id?: number;
 }
 
@@ -80,27 +80,25 @@ export const createRecipe = async (
 	response.status(201).json(rows[0]);
 };
 
-export const deleteRecipe = async (_request: Request, response: Response) => {
+export const deleteRecipe = async (
+	_request: Request,
+	response: Response
+): Promise<void> => {
 	const id = _request.params.id;
 
 	const recipeId = Number(id);
 	console.log(recipeId);
 	if (!id) {
-		return response
+		response
 			.status(400)
 			.json({ error: `Receptet med idt: ${id}, hittades inte.` });
 	}
 	try {
 		await client.query('DELETE FROM recipes WHERE id = $1', [Number(id)]);
-		return response
-			.status(200)
-			.json({ message: `Receptet med idt ${id} är raderat` });
+		response.status(200).json({ message: `Receptet med idt ${id} är raderat` });
 	} catch (error) {
-		console.log(error);
-		return response
-			.status(500)
-			.json({ error: 'Det gick inte att ta bort receptet' });
+		console.log('Problem med att ta bort receptet', error);
+		response.status(500);
+		// .json({ error: 'Det gick inte att ta bort receptet' });
 	}
 };
-
-

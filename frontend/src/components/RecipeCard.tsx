@@ -39,7 +39,7 @@ function RecipeCard(recipeProp: RecipeProp) {
 					/>
 				</div>
 				<CardHeader>
-					<CardTitle>{name}</CardTitle>
+					<CardTitle id='CardTitle'>{name}</CardTitle>
 					<CardDescription>{description}</CardDescription>
 				</CardHeader>
 				<CardContent className="flex justify-between bottom-0 text-sm">
