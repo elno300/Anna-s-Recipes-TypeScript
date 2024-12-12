@@ -4,9 +4,8 @@ import { useContext, useState } from 'react';
 import classnames from 'classnames';
 import Image from 'next/image';
 import { Button } from './ui/button';
-import imageCompression from 'browser-image-compression';
-
-// import Test from './Test';
+// import imageCompression from 'browser-image-compression';
+import { compressFileSize } from './functions';
 
 // interface postRecipe {
 // 	name: string;
@@ -25,17 +24,26 @@ export default function RecipeForm1() {
 	const [description, setDescription] = useState<string>('');
 	const [image, setImage] = useState<File | null>(null);
 	const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-	const [instructions, setInstructions] = useState<string[]>([]); // Array för instruktionerna
-	// const [currentInstruction, setCurrentInstruction] = useState<string>('');
+	const [instructions, setInstructions] = useState<string[]>(['']);
+	const [ingredients, setIngredients] = useState<string[]>(['']);
 
 	const context = useContext(Context);
 	const { setNewRecipe } = context;
 
+	const handleIgredientsChange = (
+		event: React.ChangeEvent<HTMLTextAreaElement>
+	) => {
+		const newIngredients = event?.target.value.split('\n');
+		setIngredients(newIngredients);
+		console.log(ingredients);
+	};
+
 	const handleInstructionsChange = (
 		event: React.ChangeEvent<HTMLTextAreaElement>
 	) => {
-		const newInstructions = event.target.value.split('\n'); // Dela upp vid radbrytningar
+		const newInstructions = event.target.value.split('\n');
 		setInstructions(newInstructions); // Uppdatera arrayen
+		console.log(instructions);
 	};
 
 	// Hantera filuppladdning
@@ -51,29 +59,29 @@ export default function RecipeForm1() {
 	};
 
 	//Function to compress image in browser before posting to backend.
-	async function handleImageUpload(img: File) {
-		console.log('originalFile instanceof Blob', img instanceof Blob); // true
-		console.log(`originalFile size ${img.size / 1024 / 1024} MB`);
+	// async function handleImageUpload(img: File) {
+	// 	console.log('originalFile instanceof Blob', img instanceof Blob); // true
+	// 	console.log(`originalFile size ${img.size / 1024 / 1024} MB`);
 
-		const options = {
-			maxSizeMB: 1,
-			maxWidthOrHeight: 1920,
-			useWebWorker: true,
-		};
-		try {
-			const compressedFile = await imageCompression(img, options);
-			console.log(
-				'compressedFile instanceof Blob',
-				compressedFile instanceof Blob
-			); // true
-			console.log(
-				`compressedFile size ${compressedFile.size / 1024 / 1024} MB`
-			); // smaller than maxSizeMB
-			return compressedFile;
-		} catch (error) {
-			console.log(error, 'Det gick inte att omvandla bilden');
-		}
-	}
+	// 	const options = {
+	// 		maxSizeMB: 1,
+	// 		maxWidthOrHeight: 1920,
+	// 		useWebWorker: true,
+	// 	};
+	// 	try {
+	// 		const compressedFile = await imageCompression(img, options);
+	// 		console.log(
+	// 			'compressedFile instanceof Blob',
+	// 			compressedFile instanceof Blob
+	// 		); // true
+	// 		console.log(
+	// 			`compressedFile size ${compressedFile.size / 1024 / 1024} MB`
+	// 		); // smaller than maxSizeMB
+	// 		return compressedFile;
+	// 	} catch (error) {
+	// 		console.log(error, 'Det gick inte att omvandla bilden');
+	// 	}
+	// }
 
 	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
@@ -93,23 +101,22 @@ export default function RecipeForm1() {
 		formData.append('servings', servings);
 		formData.append('course_id', category);
 		formData.append('instructions', JSON.stringify(instructionsToSend));
-		// formData.append('user_id', null);
-		const ingredients = [
-			{ amount: '200g', unit: 'grams', ingredient: 'Fettuccine pasta' },
-			{ amount: '2', unit: 'pieces', ingredient: 'Chicken breasts' },
-			{ amount: '200ml', unit: 'milliliters', ingredient: 'Heavy cream' },
-			{ amount: '50g', unit: 'grams', ingredient: 'Parmesan cheese' },
-			{ amount: '30g', unit: 'grams', ingredient: 'Butter' },
-		];
 		formData.append('ingredients', JSON.stringify(ingredients));
+		// formData.append('user_id', null);
 
 		if (image) {
-			const newImg = await handleImageUpload(image);
-			if (newImg) {
+			// Funciton that compress image.
+			const compressedImage = await compressFileSize(image);
+
+			if (compressedImage) {
 				// Skapa en fil från Blob om det behövs
-				const file = new File([newImg], image.name || 'compressed-image.jpg', {
-					type: newImg.type,
-				});
+				const file = new File(
+					[compressedImage],
+					image.name || 'compressed-image.jpg',
+					{
+						type: compressedImage.type,
+					}
+				);
 				formData.append('image', file); // Lägg till filen
 			} else {
 				console.error('Bilden kunde inte laddas upp korrekt.');
@@ -130,14 +137,16 @@ export default function RecipeForm1() {
 			console.log('Nytt recept tillagt:', newRecipe);
 			setNewRecipe(title);
 
-			// Töm alla inputfält efter framgång
+			// Töm alla inputfält efter post
 			setTitle('');
 			setCookTime('');
 			setCategory('');
 			setServings('');
 			setDescription('');
-			setImage(null);
 			setInstructions(['']);
+			setImage(null);
+			setPreviewUrl(null);
+			setIngredients(['']);
 		} catch (error) {
 			console.error('Det gick inte att skapa recept:', error);
 		}
@@ -201,7 +210,7 @@ export default function RecipeForm1() {
 						onChange={handleFileChange}
 						className="
 						appearance-none block py-3 mb-4 leading-tight focus:outline-none "
-						onClick={() => document.getElementById('image')?.click()}
+						// onClick={() => document.getElementById('image')?.click()}
 					/>
 				</div>
 				{/* Cook-time */}
@@ -276,7 +285,7 @@ export default function RecipeForm1() {
 					</div>
 				</div>
 				{/* Description part */}
-				<div className="flex flex-wrap -mx-3 mb-6">
+				<div className="flex flex-col -mx-3 mb-6">
 					<div className="w-full px-3">
 						<label
 							htmlFor="description"
@@ -288,13 +297,13 @@ export default function RecipeForm1() {
 							id="description"
 							placeholder="Skriv en kort beskrivning av receptet här..."
 							required
-							className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 py-3 px-4 mb-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 h-32 rounded-lg"
+							className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 py-3 px-4 mb-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 h-16 rounded-lg"
 							value={description}
 							onChange={(event) => setDescription(event.target.value)}
 						/>
 					</div>
-
-					<div className="flex flex-wrap -mx-3 mb-6 px-6">
+					{/* Instructions */}
+					<div className="-mx-3 mb-6 px-6">
 						<label
 							htmlFor="instructions"
 							className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -306,9 +315,29 @@ export default function RecipeForm1() {
 							name="instructions"
 							placeholder="Skriv en rad för varje steg..."
 							className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 py-3 px-4 mb-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 h-32 rounded-lg"
-							rows={5}
-							cols={40}
+							// rows={10}
+							// cols={40}
+							value={instructions}
 							onChange={handleInstructionsChange}
+						/>
+					</div>
+					{/* Ingredients */}
+					<div className="-mx-3 mb-6 px-6">
+						<label
+							htmlFor="ingredients"
+							className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+						>
+							Ingredienser:
+						</label>
+						<textarea
+							id="ingredients"
+							name="ingredients"
+							placeholder="Skriv en rad för varje steg..."
+							className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 py-3 px-4 mb-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 h-32 rounded-lg"
+							// rows={10}
+							// cols={40}
+							value={ingredients}
+							onChange={handleIgredientsChange}
 						/>
 					</div>
 				</div>

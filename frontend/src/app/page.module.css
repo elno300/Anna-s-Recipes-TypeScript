@@ -1,11 +1,19 @@
 .pageTitle {
-	padding: 2vw 5vw;
-	padding: 4vw 5vw;
-	max-width: 1440px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	background-color: rgb(155, 87, 87);
 	background-color: rgb(37, 54, 67);
 	color: white;
+}
+
+/* Child */
+.titleWrapper {
+	padding: 2vw 5vw;
+	padding: 4vw 5vw;
+	max-width: 1440px;
+	width: 100%;
+	height: fit-content;
+	display: flex;
+	justify-content: center;
 }

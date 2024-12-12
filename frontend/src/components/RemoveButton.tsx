@@ -49,7 +49,9 @@ export default function RemoveButton({ id }: IdProp) {
 				</AlertDialogHeader>
 				<AlertDialogFooter>
 					<AlertDialogCancel>Cancel</AlertDialogCancel>
-					<AlertDialogAction onClick={removeRecipe}>Continue</AlertDialogAction>
+					<AlertDialogAction className=" bg-slate-500" onClick={removeRecipe}>
+						Continue
+					</AlertDialogAction>
 				</AlertDialogFooter>
 			</AlertDialogContent>
 		</AlertDialog>

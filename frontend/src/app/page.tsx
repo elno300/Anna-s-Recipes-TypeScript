@@ -38,16 +38,15 @@ export default function Home() {
 		<>
 			<HeroModule />
 			<section className=" w-screen justify-center">
-				{/* <p>
-					<span>{numberOfRecipes}</span>:a recept
-				</p> */}
 				<section className={styles.pageTitle}>
-					<h2 className="text-2xl font-avant block uppercase">
-						Blandade recept{' '}
-					</h2>
-					<p className="align-bottom">
-						(<span> {numberOfRecipes}</span> st)
-					</p>
+					<div className={styles.titleWrapper}>
+						<h2 className="text-2xl font-avant block uppercase">
+							Blandade recept{' '}
+						</h2>
+						<p className="align-bottom">
+							(<span> {numberOfRecipes}</span> st)
+						</p>
+					</div>
 				</section>
 				<section className="flex flex-wrap justify-center gap-4 pt-4 pb-8">
 					{recipes[0] ? (

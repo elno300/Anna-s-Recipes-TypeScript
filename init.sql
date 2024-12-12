@@ -62,14 +62,15 @@ VALUES (
         "Lägg i fisken och skaldjuren och låt sjuda tills allt är genomkokt."
     ]'::jsonb,
     '[
-        { "measurement": "500 g", "ingredient": "Fisk" },
-        { "measurement": "200 g", "ingredient": "Tomat" },
-        { "measurement": "2 msk", "ingredient": "Olivolja" },
-        { "measurement": "1 tsk", "ingredient": "Salt" },
-        { "measurement": "1 st", "ingredient": "Lök" }
+        "500 g Fisk",
+        "200 g Tomat",
+        "2 msk Olivolja",
+        "1 tsk Salt",
+        "1 st Lök"
     ]'::jsonb,
-    NULL -- Ingen användare kopplad till detta recept
+    NULL
 );
+
 
 INSERT INTO recipes (
     name,
@@ -97,11 +98,11 @@ VALUES (
         "Mixa soppan slät och smaka av med salt och peppar."
     ]'::jsonb,
     '[
-        { "measurement": "1 st", "ingredient": "Lök" },
-        { "measurement": "500 g", "ingredient": "Gröna ärter" },
-        { "measurement": "1 msk", "ingredient": "Olivolja" },
-        { "measurement": "7 dl", "ingredient": "Vatten eller buljong" },
-        { "measurement": "Efter smak", "ingredient": "Salt och peppar" }
+        "1 st Lök",
+        "500 g Gröna ärter",
+        "1 msk Olivolja",
+        "7 dl Vatten eller buljong",
+        "Efter smak Salt och peppar"
     ]'::jsonb,
     NULL
 );
@@ -133,16 +134,16 @@ VALUES (
         "Tillsätt vitlök, dill och vinäger, och smaka av med salt och peppar."
     ]'::jsonb,
     '[
-        { "measurement": "3 st", "ingredient": "Rödbetor" },
-        { "measurement": "2 st", "ingredient": "Morötter" },
-        { "measurement": "2 st", "ingredient": "Potatis" },
-        { "measurement": "1 st", "ingredient": "Lök" },
-        { "measurement": "200 g", "ingredient": "Vitkål" },
-        { "measurement": "1 liter", "ingredient": "Grönsaksbuljong" },
-        { "measurement": "2 klyftor", "ingredient": "Vitlök" },
-        { "measurement": "2 msk", "ingredient": "Vitvinsvinäger" },
-        { "measurement": "1 msk", "ingredient": "Färsk dill, hackad" },
-        { "measurement": "Efter smak", "ingredient": "Salt och peppar" }
+       "3 st Rödbetor",
+       "2 st Morötter",
+       "2 st Potatis",
+       "1 st Lök",
+       "200 g Vitkål",
+       "1 liter Grönsaksbuljong",
+       "2 klyftor Vitlök",
+       "2 msk Vitvinsvinäger",
+       "1 msk Färsk dill, hackad",
+       "Efter smak Salt och peppar"
     ]'::jsonb,
     NULL
 );
