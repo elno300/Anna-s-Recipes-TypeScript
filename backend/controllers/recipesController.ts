@@ -39,6 +39,33 @@ export const getRecipes = async (
 	}
 };
 
+export const getOneRecipe = async (
+	_request: Request,
+	response: Response
+): Promise<void> => {
+	const name = _request.params.name;
+	try {
+		const { rows } = await client.query<RecipeInterface>(
+			'SELECT recipes.id, recipes.name, recipes.cook_time, recipes.description, recipes.instructions, recipes.ingredients , recipes.img_url, recipes.servings, courses.name AS course_name ' +
+				'FROM recipes ' +
+				'INNER JOIN courses ON recipes.course = courses.id ' +
+				'WHERE recipes.name = $1',
+			[name]
+		);
+
+		if (rows.length === 0) {
+			response
+				.status(404)
+				.json({ error: `Receptet med namnet ${name} hittades inte` });
+		}
+
+		response.json(rows[0]);
+	} catch (error) {
+		console.error('Error fetching recipe:', error);
+		response.status(500).json({ error: 'Det gick inte att hämta receptet' });
+	}
+};
+
 // Typ för Request där body har strukturen CreateRecipes
 type RequestWithBody<T> = Request<{}, {}, T>;
 

@@ -10,6 +10,7 @@ import {
 import RemoveButton from './RemoveButton';
 import styles from './RecipeCard.module.css';
 import { RecipeInterface } from '@/utils/interface';
+import { useRouter } from 'next/navigation';
 
 interface RecipeProp {
 	recipe: RecipeInterface;
@@ -21,6 +22,12 @@ function RecipeCard(recipeProp: RecipeProp) {
 	const { id, name, description, cook_time, servings, img_url, course_name } =
 		recipeProp.recipe;
 
+	const router = useRouter();
+
+	function handleRouting() {
+		router.push(`/RecipePage/${name}`);
+	}
+
 	let selectedImage;
 	if (img_url === 'image1' || img_url === 'image2' || img_url === 'image3') {
 		selectedImage = `http://localhost:3000/uploads/${img_url}.jpg`;
@@ -30,7 +37,10 @@ function RecipeCard(recipeProp: RecipeProp) {
 
 	return (
 		<>
-			<Card className="bg-slate-200 sm:w-96 shadow-xl overflow-hidden">
+			<Card
+				className="bg-slate-200 sm:w-96 shadow-xl overflow-hidden cursor-pointer"
+				onClick={handleRouting}
+			>
 				<div className={styles.imageContainer}>
 					<img
 						className={styles.recipeImage}
@@ -39,7 +49,7 @@ function RecipeCard(recipeProp: RecipeProp) {
 					/>
 				</div>
 				<CardHeader>
-					<CardTitle id='CardTitle'>{name}</CardTitle>
+					<CardTitle id="CardTitle">{name}</CardTitle>
 					<CardDescription>{description}</CardDescription>
 				</CardHeader>
 				<CardContent className="flex justify-between bottom-0 text-sm">
