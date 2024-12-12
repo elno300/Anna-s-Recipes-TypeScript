@@ -22,4 +22,7 @@ const nextConfig: NextConfig = {
 	},
 };
 
+import dns from 'dns';
+dns.setDefaultResultOrder('ipv4first');
+
 export default nextConfig;

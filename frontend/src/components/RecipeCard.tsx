@@ -48,7 +48,8 @@ function RecipeCard(recipeProp: RecipeProp) {
 						<p>Antal portioner: {servings}</p>
 						<p>Kategori: {course_name}</p>
 					</div>
-					<RemoveButton id={id} />
+					{/* To make it impossible to remove all cards */}
+					{name !== 'Bouillabaisse' && <RemoveButton id={id} />}
 				</CardContent>
 			</Card>
 		</>
