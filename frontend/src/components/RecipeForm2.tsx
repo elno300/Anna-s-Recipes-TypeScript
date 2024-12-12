@@ -6,6 +6,8 @@ import Image from 'next/image';
 import { Button } from './ui/button';
 import imageCompression from 'browser-image-compression';
 
+// import Test from './Test';
+
 // interface postRecipe {
 // 	name: string;
 // 	cook_time: string;
@@ -23,8 +25,18 @@ export default function RecipeForm1() {
 	const [description, setDescription] = useState<string>('');
 	const [image, setImage] = useState<File | null>(null);
 	const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+	const [instructions, setInstructions] = useState<string[]>([]); // Array för instruktionerna
+	// const [currentInstruction, setCurrentInstruction] = useState<string>('');
+
 	const context = useContext(Context);
 	const { setNewRecipe } = context;
+
+	const handleInstructionsChange = (
+		event: React.ChangeEvent<HTMLTextAreaElement>
+	) => {
+		const newInstructions = event.target.value.split('\n'); // Dela upp vid radbrytningar
+		setInstructions(newInstructions); // Uppdatera arrayen
+	};
 
 	// Hantera filuppladdning
 	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,6 +82,9 @@ export default function RecipeForm1() {
 			throw new Error('Context måste användas inom en Provider');
 		}
 
+		const instructionsToSend =
+			instructions.length > 0 ? instructions : ['Ingen instruktion angiven'];
+		console.log(instructionsToSend);
 		// Skapa FormData objektet
 		const formData = new FormData();
 		formData.append('name', title);
@@ -77,10 +92,18 @@ export default function RecipeForm1() {
 		formData.append('description', description);
 		formData.append('servings', servings);
 		formData.append('course_id', category);
-		// formData.append('user_id', userId);
+		formData.append('instructions', JSON.stringify(instructionsToSend));
+		// formData.append('user_id', null);
+		const ingredients = [
+			{ amount: '200g', unit: 'grams', ingredient: 'Fettuccine pasta' },
+			{ amount: '2', unit: 'pieces', ingredient: 'Chicken breasts' },
+			{ amount: '200ml', unit: 'milliliters', ingredient: 'Heavy cream' },
+			{ amount: '50g', unit: 'grams', ingredient: 'Parmesan cheese' },
+			{ amount: '30g', unit: 'grams', ingredient: 'Butter' },
+		];
+		formData.append('ingredients', JSON.stringify(ingredients));
 
 		if (image) {
-			console.log('Händer detta?????', image);
 			const newImg = await handleImageUpload(image);
 			if (newImg) {
 				// Skapa en fil från Blob om det behövs
@@ -114,6 +137,7 @@ export default function RecipeForm1() {
 			setServings('');
 			setDescription('');
 			setImage(null);
+			setInstructions(['']);
 		} catch (error) {
 			console.error('Det gick inte att skapa recept:', error);
 		}
@@ -180,6 +204,7 @@ export default function RecipeForm1() {
 						onClick={() => document.getElementById('image')?.click()}
 					/>
 				</div>
+				{/* Cook-time */}
 				<div className="flex flex-wrap -mx-3 mb-6">
 					<div className="w-full md:w-1/3 px-3">
 						<label
@@ -198,6 +223,7 @@ export default function RecipeForm1() {
 							onChange={(event) => setCookTime(event.target.value)}
 						/>
 					</div>
+					{/* Category */}
 					<div className="w-full md:w-1/3 px-3">
 						<label
 							htmlFor="category"
@@ -223,6 +249,7 @@ export default function RecipeForm1() {
 							<option value={6}>Soppa</option>
 						</select>
 					</div>
+					{/* Portions */}
 					<div className="w-full md:w-1/3 px-3 mt-4 md:mt-0">
 						<label
 							htmlFor="servings"
@@ -248,6 +275,7 @@ export default function RecipeForm1() {
 						</select>
 					</div>
 				</div>
+				{/* Description part */}
 				<div className="flex flex-wrap -mx-3 mb-6">
 					<div className="w-full px-3">
 						<label
@@ -263,6 +291,24 @@ export default function RecipeForm1() {
 							className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 py-3 px-4 mb-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 h-32 rounded-lg"
 							value={description}
 							onChange={(event) => setDescription(event.target.value)}
+						/>
+					</div>
+
+					<div className="flex flex-wrap -mx-3 mb-6 px-6">
+						<label
+							htmlFor="instructions"
+							className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+						>
+							Instruktioner
+						</label>
+						<textarea
+							id="instructions"
+							name="instructions"
+							placeholder="Skriv en rad för varje steg..."
+							className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 py-3 px-4 mb-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 h-32 rounded-lg"
+							rows={5}
+							cols={40}
+							onChange={handleInstructionsChange}
 						/>
 					</div>
 				</div>

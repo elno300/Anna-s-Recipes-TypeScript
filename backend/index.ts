@@ -64,16 +64,32 @@ app.post(
 			servings,
 			course_id,
 			instructions,
-			ingridients,
+			ingredients,
+			user_id,
 		} = req.body;
+
+		const validUserId = user_id ? user_id : null;
+		console.log(req.body);
+		const instructionsJson = JSON.stringify(instructions);
+		const ingredientsJson = JSON.stringify(ingredients);
 
 		const img_url = req.file ? `${req.file.filename}` : null;
 		console.log('Bildens sökväg i backend,', img_url);
 
 		const { rows } = await client.query(
-			`INSERT INTO recipes (name, cook_time, description, img_url, servings, course)
-     VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
-			[name, cook_time, description, img_url, servings, course_id]
+			`INSERT INTO recipes (name, cook_time, description, img_url, servings, course, instructions, ingredients, user_id)
+     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`,
+			[
+				name,
+				cook_time,
+				description,
+				img_url,
+				servings,
+				course_id,
+				instructionsJson,
+				ingredientsJson,
+				validUserId,
+			]
 		);
 
 		response.status(201).json(rows[0]);

@@ -12,12 +12,16 @@ interface RecipeInterface {
 }
 
 interface CreateRecipes {
+	id?: number;
 	name: string;
-	cook_time: string;
+	cook_time?: string;
 	description: string;
-	img_url: string;
-	servings: number;
-	course_id: number;
+	img_url?: string;
+	servings?: number;
+	course_id?: number;
+	instructions: string[];
+	ingredients: Array<{ amount: string; unit: string; ingredient: string }>;
+	user_id?: number;
 }
 
 export const getRecipes = async (
@@ -49,12 +53,29 @@ export const createRecipe = async (
 		img_url,
 		servings,
 		course_id,
+		instructions,
+		ingredients,
+		user_id,
 	}: CreateRecipes = _request.body;
+	const validUserId = user_id ? user_id : null;
+	console.log(_request.body);
+	const instructionsJson = JSON.stringify(instructions);
+	const ingredientsJson = JSON.stringify(ingredients);
 
 	const { rows } = await client.query(
-		`INSERT INTO recipes (name, cook_time, description, img_url, servings, course)
-     VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
-		[name, cook_time, description, img_url, servings, course_id]
+		`INSERT INTO recipes (name, cook_time, description, img_url, servings, course, instructions, ingredients, user_id)
+     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`,
+		[
+			name,
+			cook_time,
+			description,
+			img_url,
+			servings,
+			course_id,
+			instructionsJson,
+			ingredientsJson,
+			validUserId,
+		]
 	);
 	response.status(201).json(rows[0]);
 };
@@ -82,25 +103,4 @@ export const deleteRecipe = async (_request: Request, response: Response) => {
 	}
 };
 
-// app.post(
-// 	'/api/new-recipe2',
-// 	upload.single('image'),
-// 	(req: Request, res: Response) => {
-// 		// Här kan du få tillgång till både textdata och filen
-// 		const { name, cook_time, description, servings, course_id } = req.body;
-// 		const img_url = req.file ? req.file.path : null; // Spara sökvägen till filen
 
-// 		// Här kan du spara dessa data i din databas, eller göra något med filen
-// 		const newRecipe = {
-// 			name,
-// 			cook_time,
-// 			description,
-// 			img_url, // Bildens sökväg
-// 			servings,
-// 			coures: course_id,
-// 		};
-
-// 		// Simulera att spara i databas och skicka tillbaka data
-// 		res.json(newRecipe);
-// 	}
-// );
