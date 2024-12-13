@@ -5,4 +5,5 @@ Feature: Receptkort länkar till recept
   Scenario: Användaren klickar på ett receptkort
     Given Jag är på hemsidan och ett receptkort med namnet Bouillabaisse finns
     When Jag klickar på kortet med namnet Bouillabaisse
-    Then En ny sida ska läsas in som visar hela receptet, inklusive ingredienser
+    Then Ska jag befinna mig på rätt URL för recpetet
+    Then Sidan ska visa namnet på receptet

@@ -170,8 +170,7 @@ export default function RecipeForm1() {
 								width={400}
 								height={300}
 								alt="Picture of food"
-								className="mb-2 bg-gray-200 items-center justify-center border border-gray-300 rounded-lg cover overflow-hidden"
-								objectFit="cover"
+								className="mb-2 bg-gray-200 items-center justify-center border border-gray-300 rounded-lg cover overflow-hidden object-cover"
 							></Image>
 						</div>
 					) : (
@@ -309,8 +308,6 @@ export default function RecipeForm1() {
 							name="ingredients"
 							placeholder="Skriv en rad för varje steg..."
 							className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 py-3 px-4 mb-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 h-32 rounded-lg"
-							// rows={10}
-							// cols={40}
 							value={ingredients}
 							onChange={handleIgredientsChange}
 						/>

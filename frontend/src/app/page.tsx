@@ -20,7 +20,7 @@ export default function Home() {
 			try {
 				const response = await fetch('http://localhost:3000/api/recipes');
 				if (!response.ok) {
-					throw new Error(`HTTP-fel! Status: ${response.status}`);
+					throw new Error(`HTTP-fel! Status: ${response.status}, ${response}`);
 				}
 				const result: RecipeInterface[] = await response.json();
 				setRecipes(result);
