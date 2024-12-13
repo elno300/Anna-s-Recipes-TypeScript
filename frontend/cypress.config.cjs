@@ -90,6 +90,7 @@ const {
 	createEsbuildPlugin,
 } = require('@badeball/cypress-cucumber-preprocessor/esbuild');
 const { defineConfig } = require('cypress');
+// import { defineConfig } from 'cypress';
 
 module.exports = defineConfig({
 	e2e: {
@@ -113,8 +114,9 @@ module.exports = defineConfig({
 
 	component: {
 		devServer: {
-			framework: 'react',
+			framework: 'next',
 			bundler: 'webpack',
 		},
 	},
 });
+// framework: 'react',

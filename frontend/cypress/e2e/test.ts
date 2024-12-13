@@ -6,14 +6,14 @@ import {
 	Before,
 } from '@badeball/cypress-cucumber-preprocessor';
 
-// Before(() => {
-// 	cy.visit('http://localhost:4000/');
-// });
+Before(() => {
+	cy.visit('http://localhost:4000/');
+});
 
 Given(
 	'Jag är på hemsidan och ett receptkort med namnet Bouillabaisse finns',
 	() => {
-		cy.visit('http://localhost:4000');
+		// cy.visit('http://localhost:4000');
 		cy.contains('Bouillabaisse').should('be.visible');
 	}
 );
