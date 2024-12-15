@@ -37,18 +37,15 @@ function RecipeCard(recipeProp: RecipeProp) {
 
 	return (
 		<>
-			<Card
-				className="bg-slate-200 sm:w-96 shadow-xl overflow-hidden cursor-pointer"
-				onClick={handleRouting}
-			>
-				<div className={styles.imageContainer}>
+			<Card className="bg-slate-200 sm:w-96 shadow-xl overflow-hidden">
+				<div className={styles.imageContainer} onClick={handleRouting}>
 					<img
 						className={styles.recipeImage}
 						src={selectedImage}
 						alt={`Bild på ${name}`}
 					/>
 				</div>
-				<CardHeader>
+				<CardHeader onClick={handleRouting} className="cursor-pointer">
 					<CardTitle id="CardTitle">{name}</CardTitle>
 					<CardDescription>{description}</CardDescription>
 				</CardHeader>

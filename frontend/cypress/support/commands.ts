@@ -50,7 +50,6 @@
 import { mount } from 'cypress/react';
 
 declare global {
-
 	namespace Cypress {
 		interface Chainable {
 			mount: typeof mount;
@@ -63,4 +62,8 @@ Cypress.Commands.add('mount', mount);
 
 Cypress.Commands.add('dataCy', (value) => {
 	return cy.get(`[data-cy=${value}]`);
+
+	Cypress.Commands.add('resetDatabase', () => {
+		cy.exec('psql -f init.sql "postgres://postgres:@localhost/postgres"');
+	});
 });

@@ -55,7 +55,9 @@ export default function RecipePage() {
 		servings,
 	} = recipe;
 
-	console.log(ingredients);
+	console.log('ingredienser', ingredients);
+	// const test = JSON.parse(ingredients);
+	// console.log('test :>> ', test);
 
 	return (
 		<div className="font-avant text-green-500">

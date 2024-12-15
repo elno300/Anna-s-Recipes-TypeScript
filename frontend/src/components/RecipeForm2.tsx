@@ -16,6 +16,10 @@ import { compressFileSize } from './functions';
 // 	course_id: number;
 // }
 
+// interface MyObject {
+// 	ingredient: string;
+// }
+
 export default function RecipeForm1() {
 	const [title, setTitle] = useState<string>('');
 	const [cookTime, setCookTime] = useState<string>('');
@@ -26,11 +30,12 @@ export default function RecipeForm1() {
 	const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 	const [instructions, setInstructions] = useState<string[]>(['']);
 	const [ingredients, setIngredients] = useState<string[]>(['']);
+	// const [myArray, setMyArray] = useState<MyObject[]>([]);
 
 	const context = useContext(Context);
 	const { setNewRecipe } = context;
 
-	const handleIgredientsChange = (
+	const handleIngredientsChange = (
 		event: React.ChangeEvent<HTMLTextAreaElement>
 	) => {
 		const newIngredients = event?.target.value.split('\n');
@@ -58,6 +63,11 @@ export default function RecipeForm1() {
 		}
 	};
 
+	const processedInstructions = instructions
+		.filter((instruction) => instruction.trim() !== '') // Ta bort tomma rader
+		.map((instruction) => `"${instruction.trim().replace(/\.$/, '')}."`);
+	console.log('instructioner', processedInstructions);
+
 	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 
@@ -68,6 +78,8 @@ export default function RecipeForm1() {
 		const instructionsToSend =
 			instructions.length > 0 ? instructions : ['Ingen instruktion angiven'];
 		console.log(instructionsToSend);
+
+		console.log('stringified json', JSON.stringify(ingredients));
 		// Skapa FormData objektet
 		const formData = new FormData();
 		formData.append('name', title);
@@ -76,7 +88,7 @@ export default function RecipeForm1() {
 		formData.append('servings', servings);
 		formData.append('course_id', category);
 		formData.append('instructions', JSON.stringify(instructionsToSend));
-		formData.append('ingredients', JSON.stringify(ingredients));
+		// formData.append('ingredients', ingredients);
 		// formData.append('user_id', null);
 
 		if (image) {
@@ -291,8 +303,10 @@ export default function RecipeForm1() {
 							className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 py-3 px-4 mb-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 h-32 rounded-lg"
 							// rows={10}
 							// cols={40}
-							value={instructions}
+							// value={instructions}
+							// onChange={(event) => setInstructions(event.target.value)}
 							onChange={handleInstructionsChange}
+							// onKeyDown={handleInstructionsChange}
 						/>
 					</div>
 					{/* Ingredients */}
@@ -306,10 +320,10 @@ export default function RecipeForm1() {
 						<textarea
 							id="ingredients"
 							name="ingredients"
-							placeholder="Skriv en rad för varje steg..."
+							placeholder="Skriv en rad för varje ingrediens.. "
 							className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 py-3 px-4 mb-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 h-32 rounded-lg"
-							value={ingredients}
-							onChange={handleIgredientsChange}
+							// value={ingredients}
+							onChange={handleIngredientsChange}
 						/>
 					</div>
 				</div>

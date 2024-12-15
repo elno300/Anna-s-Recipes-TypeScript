@@ -47,3 +47,14 @@ module.exports = defineConfig({
     ]
   }
 })
+
+
+Mer om cypress: För att reseta databasen
+
+describe('...', () => {
+  it('...', () => {
+    cy.resetDatabase()
+
+    // ...
+  })
+})

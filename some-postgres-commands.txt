@@ -3,6 +3,13 @@ select count(*) from recipes;
 
 select * from recipes where id = 1;
 
-//remove more then one inserts/ recipes. 
+//remove more then one inserts/ recipes.
 delete from recipes where id between 5 and 70;
 DELETE 37
+
+Göra säkerhetskopia av databasen
+pg_dump -f backup.sql --username=postgres
+
+
+Läsa in databasen från fil.
+psql -f init.sql "postgres://postgres:secret@localhost/postgres"

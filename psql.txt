@@ -1,0 +1,4 @@
+
+
+
+psql -f init.sql "postgres://postgres:secret@localhost/postgres"
