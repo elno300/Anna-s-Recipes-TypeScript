@@ -13,3 +13,7 @@ pg_dump -f backup.sql --username=postgres
 
 Läsa in databasen från fil.
 psql -f init.sql "postgres://postgres:secret@localhost/postgres"
+
+
+Logga in i postgres
+psql --username=postgres

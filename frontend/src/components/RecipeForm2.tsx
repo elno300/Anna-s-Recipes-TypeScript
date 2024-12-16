@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { Button } from './ui/button';
 // import imageCompression from 'browser-image-compression';
 import { compressFileSize } from './functions';
+import TextEditor from './TextEditor';
 
 // interface postRecipe {
 // 	name: string;
@@ -28,7 +29,7 @@ export default function RecipeForm1() {
 	const [description, setDescription] = useState<string>('');
 	const [image, setImage] = useState<File | null>(null);
 	const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-	const [instructions, setInstructions] = useState<string[]>(['']);
+	const [instructions, setInstructions] = useState<string>('');
 	const [ingredients, setIngredients] = useState<string[]>(['']);
 	// const [myArray, setMyArray] = useState<MyObject[]>([]);
 
@@ -43,12 +44,8 @@ export default function RecipeForm1() {
 		console.log(ingredients);
 	};
 
-	const handleInstructionsChange = (
-		event: React.ChangeEvent<HTMLTextAreaElement>
-	) => {
-		const newInstructions = event.target.value.split('\n');
-		setInstructions(newInstructions); // Uppdatera arrayen
-		console.log(instructions);
+	const handleEditorChange = (value: string) => {
+		setInstructions(value);
 	};
 
 	// Hantera filuppladdning
@@ -63,10 +60,10 @@ export default function RecipeForm1() {
 		}
 	};
 
-	const processedInstructions = instructions
-		.filter((instruction) => instruction.trim() !== '') // Ta bort tomma rader
-		.map((instruction) => `"${instruction.trim().replace(/\.$/, '')}."`);
-	console.log('instructioner', processedInstructions);
+	// const processedInstructions = instructions
+	// 	.filter((instruction) => instruction.trim() !== '') // Ta bort tomma rader
+	// 	.map((instruction) => `"${instruction.trim().replace(/\.$/, '')}."`);
+	// console.log('instructioner', processedInstructions);
 
 	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
@@ -76,7 +73,7 @@ export default function RecipeForm1() {
 		}
 
 		const instructionsToSend =
-			instructions.length > 0 ? instructions : ['Ingen instruktion angiven'];
+			instructions.length > 0 ? instructions : 'Ingen instruktion angiven';
 		console.log(instructionsToSend);
 
 		console.log('stringified json', JSON.stringify(ingredients));
@@ -87,8 +84,9 @@ export default function RecipeForm1() {
 		formData.append('description', description);
 		formData.append('servings', servings);
 		formData.append('course_id', category);
-		formData.append('instructions', JSON.stringify(instructionsToSend));
-		// formData.append('ingredients', ingredients);
+		formData.append('instructions', instructionsToSend);
+		formData.append('ingredients', JSON.stringify(ingredients));
+		// formData.append('ingredients', JSON.stringify(ingredients));
 		// formData.append('user_id', null);
 
 		if (image) {
@@ -130,7 +128,7 @@ export default function RecipeForm1() {
 			setCategory('');
 			setServings('');
 			setDescription('');
-			setInstructions(['']);
+			setInstructions('');
 			setImage(null);
 			setPreviewUrl(null);
 			setIngredients(['']);
@@ -296,17 +294,10 @@ export default function RecipeForm1() {
 						>
 							Instruktioner
 						</label>
-						<textarea
+						<TextEditor
+							placeholder="Skriv instruktionerna i en lista"
 							id="instructions"
-							name="instructions"
-							placeholder="Skriv en rad för varje steg..."
-							className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 py-3 px-4 mb-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 h-32 rounded-lg"
-							// rows={10}
-							// cols={40}
-							// value={instructions}
-							// onChange={(event) => setInstructions(event.target.value)}
-							onChange={handleInstructionsChange}
-							// onKeyDown={handleInstructionsChange}
+							onChange={handleEditorChange}
 						/>
 					</div>
 					{/* Ingredients */}

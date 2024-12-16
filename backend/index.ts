@@ -70,7 +70,7 @@ app.post(
 
 		const validUserId = user_id ? user_id : null;
 		console.log(req.body);
-		const instructionsJson = JSON.stringify(instructions);
+		// const instructions = JSON.stringify(instructions);
 		const ingredientsJson = JSON.stringify(ingredients);
 
 		const img_url = req.file ? `${req.file.filename}` : null;
@@ -86,7 +86,7 @@ app.post(
 				img_url,
 				servings,
 				course_id,
-				instructionsJson,
+				instructions,
 				ingredientsJson,
 				validUserId,
 			]

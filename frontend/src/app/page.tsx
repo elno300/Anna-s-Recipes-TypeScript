@@ -44,7 +44,7 @@ export default function Home() {
 							Blandade recept{' '}
 						</h2>
 						<p className="align-bottom">
-							(<span> {numberOfRecipes}</span> st)
+							(<span id="counter"> {numberOfRecipes}</span> st)
 						</p>
 					</div>
 				</section>

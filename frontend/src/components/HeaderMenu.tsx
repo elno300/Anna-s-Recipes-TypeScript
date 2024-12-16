@@ -55,6 +55,7 @@ function HeaderMenu() {
 					</section>
 					<section className=" text-lg gap-7 sm:flex hidden justify-end items-center uppercase font-avant  ">
 						<Link
+							id="addRecipe"
 							href="/addRecipe"
 							className="underline-offset-4 hover:underline"
 						>

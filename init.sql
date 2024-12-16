@@ -33,7 +33,7 @@ CREATE TABLE recipes (
     servings INTEGER,
     img_url TEXT,
     course INTEGER,
-    instructions JSONB NOT NULL,
+    instructions TEXT NOT NULL,
     ingredients JSONB NOT NULL,
     user_id INTEGER,
     FOREIGN KEY(course) REFERENCES courses(id),
@@ -58,13 +58,7 @@ VALUES (
     4,
     'image1.jpg',
     7,
-    '[
-        "Förbered fisken och skaldjuren.",
-        "Hacka grönsakerna.",
-        "Fräs grönsakerna med kryddor.",
-        "Tillsätt buljong och låt sjuda.",
-        "Lägg i fisken och skaldjuren och låt sjuda tills allt är genomkokt."
-    ]'::jsonb,
+    '<ol><li>Förbered fisken och skaldjuren.</li><li>Hacka grönsakerna.</li><li>Fräs grönsakerna med kryddor.</li><li>Tillsätt buljong och låt sjuda.</li><li>Lägg i fisken och skaldjuren och låt sjuda tills allt är genomkokt.</li></ol>',
     '[
         "500 g Fisk",
         "200 g Tomat",

@@ -40,7 +40,7 @@ function RecipeCard(recipeProp: RecipeProp) {
 			<Card className="bg-slate-200 sm:w-96 shadow-xl overflow-hidden">
 				<div className={styles.imageContainer} onClick={handleRouting}>
 					<img
-						className={styles.recipeImage}
+						className={styles.recipeImage }
 						src={selectedImage}
 						alt={`Bild på ${name}`}
 					/>

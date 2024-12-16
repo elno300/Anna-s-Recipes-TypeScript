@@ -1,7 +1,7 @@
 'use client';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-// import styles from './page.module.css';
+import styles from './page.module.css';
 import Image from 'next/image';
 import { Clock, Users, Tag } from 'lucide-react';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
@@ -10,7 +10,7 @@ export interface RecipeInterface {
 	name: string;
 	cook_time: string;
 	description: string;
-	instructions: string[];
+	instructions: string;
 	ingredients: string[];
 	course_name: string;
 	img_url: string;
@@ -41,7 +41,7 @@ export default function RecipePage() {
 	}, [decoded]);
 
 	if (!recipe) {
-		return <p>Loading...</p>;
+		return <p className="mt-32 text-center">Loading...</p>;
 	}
 
 	const {
@@ -55,57 +55,72 @@ export default function RecipePage() {
 		servings,
 	} = recipe;
 
-	console.log('ingredienser', ingredients);
-	// const test = JSON.parse(ingredients);
-	// console.log('test :>> ', test);
+	let ingredientsArray: string[] = [];
+	// ingredientsArray =JSON.parse(ingredients);
+	if (typeof ingredients === 'string') {
+		try {
+			ingredientsArray = JSON.parse(ingredients);
+		} catch (error) {
+			console.error('Error parsing ingredients:', error);
+		}
+	} else if (Array.isArray(ingredients)) {
+		ingredientsArray = ingredients; // Om ingredients redan är en array
+	}
 
+	console.log('ingredienser', ingredients);
+
+	// flex-col justify-center align-middle text-center items-center
 	return (
-		<div className="font-avant text-green-500">
-			<div className="container mx-auto px-4 py-8 max-w-4xl">
-				<AspectRatio ratio={16 / 9} className="bg-muted mb-6">
-					<Image
-						src={`http://localhost:3000/uploads/${img_url}`}
-						alt={name}
-						fill
-						className="rounded-lg object-cover"
-					/>
-				</AspectRatio>
-			</div>
-			{/* <div className={styles.imageContainer}>
-				<img
-					className={styles.recipeImage}
-					src={`http://localhost:3000/uploads/${img_url}`}
-					alt={`Bild på ${name}`}
-				/>
-			</div> */}
-			<h2 className="text-2xl font-avant block uppercase">{name}</h2>
-			<p>{description}</p>
-			<div>
-				<Clock className="w-5 h-5 mr-2 text-gray-500" />
-				<p>Tillagningstid: {cook_time}</p>
-				<Users className="w-5 h-5 mr-2 text-gray-500" />
-				<p>Antal portioner: {servings}</p>
-				<Tag className="w-5 h-5 mr-2 text-gray-500" />
-				<p>Kategori: {course_name}</p>
-			</div>
-			<div className="ingredients-container">
-				<h2>Ingredienser</h2>
-				{ingredients && (
+		<div className={styles.centerMainContainer}>
+			<article className="flex mt-36 flex-col sm:flex-row justify-evenly font-avan w-full max-w-7xl">
+				<div className="container mx-auto px-4 sm:px-0 max-w-4xl">
+					<AspectRatio ratio={8 / 6} className="bg-muted mb-6 rounded-lg">
+						<Image
+							src={`http://localhost:3000/uploads/${img_url}`}
+							alt={name}
+							fill
+							className="rounded-lg object-cover "
+						/>
+					</AspectRatio>
+				</div>
+				<section className="container px-4 max-w-4xl flex-col align-items-center ">
+					<div className=" text-start max-h-fit pt-12">
+						<h2 className="text-4xl sm:text-7xl block font-magic">{name}</h2>
+						<p className="text-xl">{description}</p>
+						<div className="flex gap-6 pt-6">
+							<div className="flex">
+								<Clock className="w-5 h-5 mr-2 text-gray-500" />
+								<p>{cook_time}</p>
+							</div>
+							<div className="flex">
+								<Users className="w-5 h-5 mr-2 text-gray-500" />
+								<p> {servings} portioner</p>
+							</div>
+							<div className="flex">
+								<Tag className="w-5 h-5 mr-2 text-gray-500" />
+								<p> {course_name}</p>
+							</div>
+						</div>
+					</div>
+				</section>
+			</article>
+			<section className={styles.ingredientsContainer}>
+				<h3 className="uppercase">Ingredienser</h3>
+				{ingredientsArray && (
 					<ul>
-						{Object.values(ingredients).map((ingredient, index) => (
+						{ingredientsArray.map((ingredient, index) => (
 							<li key={index}>{ingredient}</li>
 						))}
 					</ul>
 				)}
-			</div>
-			<div className="instructions-container">
-				<h2>Instruktioner</h2>
-				<ul>
-					{Object.values(instructions).map((instruction, index) => (
-						<li key={index}>{instruction}</li>
-					))}
-				</ul>
-			</div>
+			</section>
+			<section className={styles.instructionsContainer}>
+				<h3 className="uppercase">Instruktioner</h3>
+				<div
+					className={styles.instructions}
+					dangerouslySetInnerHTML={{ __html: instructions }}
+				/>
+			</section>
 		</div>
 	);
 }
