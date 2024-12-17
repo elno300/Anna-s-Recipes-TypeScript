@@ -52,7 +52,7 @@ export default function Home() {
 					{recipes[0] ? (
 						recipes.map((recipe) => (
 							<RecipeCard
-								className="recipe-card"
+								// className="recipe-card"
 								key={recipe.id}
 								recipe={recipe}
 							/>
