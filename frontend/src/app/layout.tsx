@@ -4,11 +4,12 @@ import './globals.css';
 import RecipeProvider from '@/RecipeProvider';
 import HeaderMenu from '@/components/HeaderMenu';
 // ../assets/font/AvenirNext-Medium.ttf
-const avenirNext = localFont({
-	src: '../assets/font/AvenirNext-Medium.ttf',
-	variable: '--font-geist-sans',
-	weight: '100 900',
-});
+// const avenirNext = localFont({
+// 	src: '../assets/font/AvenirNext-Medium.ttf',
+// 	variable: '--font-geist-sans',
+// 	weight: '100 900',
+// });
+
 const avenirThin = localFont({
 	src: '../assets/font/AvenirNext-thin.ttf',
 	variable: '--font-geist-mono',
@@ -45,7 +46,7 @@ export default function RootLayout({
 			></meta>
 			<RecipeProvider>
 				<body
-					className={`${avenirNext.variable} ${avenirThin.variable} ${sugarMagic.variable} ${avant.variable} antialiased`}
+					className={`${avenirThin.variable} ${sugarMagic.variable} ${avant.variable} antialiased`}
 				>
 					<HeaderMenu />
 					<main className="">{children}</main>
