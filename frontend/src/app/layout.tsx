@@ -10,7 +10,7 @@ const avenirNext = localFont({
 	weight: '100 900',
 });
 const avenirThin = localFont({
-	src: '/font/AvenirNext-thin.ttf',
+	src: 'font/AvenirNext-thin.ttf',
 	variable: '--font-geist-mono',
 	weight: '100 900',
 });
@@ -22,7 +22,7 @@ const sugarMagic = localFont({
 });
 
 const avant = localFont({
-	src: '/font/avantgarde/AVGARDD_2.ttf',
+	src: 'assets/font/avantgarde/AVGARDD_2.ttf',
 	variable: '--avant',
 	weight: ' 200, 400, 600',
 });
