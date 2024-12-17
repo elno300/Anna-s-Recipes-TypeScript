@@ -27,7 +27,7 @@ function RecipeCard(recipeProp: RecipeProp) {
 		router.push(`/RecipePage/${name}`);
 	}
 
-	const selectedImage = `http://localhost:3000/uploads/${img_url}.jpg`;
+	const selectedImage = `http://localhost:3000/uploads/${img_url}`;
 
 	return (
 		<>
