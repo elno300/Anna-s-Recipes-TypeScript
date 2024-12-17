@@ -1,8 +1,6 @@
 import Image from 'next/image';
 import { Clock, Users, Leaf, Heart } from 'lucide-react';
-
 import { Button } from '@/components/ui/button';
-// import { RecipeHeader } from '../components/recipe-header';
 import { StarRating } from '@/components/StarRating';
 
 export default function RecipePage() {

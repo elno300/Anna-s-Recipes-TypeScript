@@ -36,7 +36,7 @@ export default function RemoveButton({ id }: IdProp) {
 
 	return (
 		<AlertDialog>
-			<AlertDialogTrigger className="bottom-0 right-0 z-10 bg-slate-500">
+			<AlertDialogTrigger className="bottom-0 right-0 z-10">
 				Remove
 			</AlertDialogTrigger>
 			<AlertDialogContent>

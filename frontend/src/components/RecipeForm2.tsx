@@ -4,7 +4,6 @@ import { useContext, useState } from 'react';
 import classnames from 'classnames';
 import Image from 'next/image';
 import { Button } from './ui/button';
-// import imageCompression from 'browser-image-compression';
 import { compressFileSize } from './functions';
 import TextEditor from './TextEditor';
 
@@ -143,9 +142,8 @@ export default function RecipeForm1() {
 				onSubmit={handleSubmit}
 				className={classnames(
 					'w-[90vw] border border-gray-300 rounded-lg p-6 shadow-md bg-white max-w-3xl mb-20'
-					// styles.transparent
 				)}
-				encType="multipart/form-data" // Viktigt att sätta denna för uppladdning av filer
+				encType="multipart/form-data"
 			>
 				<div className="flex flex-wrap -mx-3 mb-6">
 					<div className="w-full px-3">
@@ -194,7 +192,6 @@ export default function RecipeForm1() {
 						onChange={handleFileChange}
 						className="
 						appearance-none block py-3 mb-4 leading-tight focus:outline-none "
-						// onClick={() => document.getElementById('image')?.click()}
 					/>
 				</div>
 				{/* Cook-time */}
@@ -313,7 +310,6 @@ export default function RecipeForm1() {
 							name="ingredients"
 							placeholder="Skriv en rad för varje ingrediens.. "
 							className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 py-3 px-4 mb-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 h-32 rounded-lg"
-							// value={ingredients}
 							onChange={handleIngredientsChange}
 						/>
 					</div>

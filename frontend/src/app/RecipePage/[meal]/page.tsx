@@ -5,6 +5,8 @@ import styles from './page.module.css';
 import Image from 'next/image';
 import { Clock, Users, Tag } from 'lucide-react';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
+import classnames from 'classnames';
+import { StarRating } from '@/components/StarRating';
 
 export interface RecipeInterface {
 	name: string;
@@ -69,58 +71,73 @@ export default function RecipePage() {
 
 	console.log('ingredienser', ingredients);
 
-	// flex-col justify-center align-middle text-center items-center
 	return (
-		<div className={styles.centerMainContainer}>
-			<article className="flex mt-36 flex-col sm:flex-row justify-evenly font-avan w-full max-w-7xl">
+		<div className={classnames(styles.centerMainContainer, 'text-cyan-950')}>
+			<article className="flex mt-32 flex-col sm:flex-row justify-evenly w-full max-w-7xl">
 				<div className="container mx-auto px-4 sm:px-0 max-w-4xl">
-					<AspectRatio ratio={8 / 6} className="bg-muted mb-6 rounded-lg">
+					<AspectRatio ratio={8 / 7} className="bg-muted mb-6 rounded-lg">
 						<Image
 							src={`http://localhost:3000/uploads/${img_url}`}
 							alt={name}
 							fill
-							className="rounded-lg object-cover "
+							className="rounded-lg object-cover"
 						/>
 					</AspectRatio>
 				</div>
-				<section className="container px-4 max-w-4xl flex-col align-items-center ">
-					<div className=" text-start max-h-fit pt-12">
-						<h2 className="text-4xl sm:text-7xl block font-magic">{name}</h2>
-						<p className="text-xl">{description}</p>
-						<div className="flex gap-6 pt-6">
+
+				<section className="container max-w-4xl flex flex-col align-items-center items-center pl-7 justify-center ">
+					<div className=" text-start max-h-fit">
+						<h2 className="text-4xl lg:text-5xl xl:text-7xl block font-magic">
+							{name}
+						</h2>
+						<div className="flex gap-6 pt-4">
 							<div className="flex">
-								<Clock className="w-5 h-5 mr-2 text-gray-500" />
+								<Clock className="w-5 h-5 mr-2" />
 								<p>{cook_time}</p>
 							</div>
 							<div className="flex">
-								<Users className="w-5 h-5 mr-2 text-gray-500" />
+								<Users className="w-5 h-5 mr-2" />
 								<p> {servings} portioner</p>
 							</div>
 							<div className="flex">
-								<Tag className="w-5 h-5 mr-2 text-gray-500" />
+								<Tag className="w-5 h-5 mr-2 " />
 								<p> {course_name}</p>
 							</div>
 						</div>
+						<p className="pt-4 pb-4 text-sm lg:text-xl">{description}</p>
+						<StarRating rating={5} />
 					</div>
 				</section>
 			</article>
-			<section className={styles.ingredientsContainer}>
-				<h3 className="uppercase">Ingredienser</h3>
-				{ingredientsArray && (
-					<ul>
-						{ingredientsArray.map((ingredient, index) => (
-							<li key={index}>{ingredient}</li>
-						))}
-					</ul>
-				)}
-			</section>
-			<section className={styles.instructionsContainer}>
-				<h3 className="uppercase">Instruktioner</h3>
-				<div
-					className={styles.instructions}
-					dangerouslySetInnerHTML={{ __html: instructions }}
-				/>
-			</section>
+			<article className="md:flex justify-evenly w-full max-w-7xl md:pt-10 md:pb-20">
+				<section
+					className={classnames('container pl-7', styles.ingredientsContainer)}
+				>
+					<h3 className="text-4xl lg:text-5xl xl:text-5xl block font-magic ">
+						Ingredienser
+					</h3>
+					{ingredientsArray && (
+						<ul className={classnames(styles.ingredients, 'pt-2 space-y-2')}>
+							{ingredientsArray.map((ingredient, index) => (
+								<li className="" key={index}>
+									{ingredient}
+								</li>
+							))}
+						</ul>
+					)}
+				</section>
+				<section
+					className={classnames(styles.instructionsContainer, 'container pl-7')}
+				>
+					<h3 className="text-4xl lg:text-5xl xl:text-5xl block font-magic">
+						Instruktioner
+					</h3>
+					<div
+						className={classnames(styles.instructions, 'pt-2 space-y-2')}
+						dangerouslySetInnerHTML={{ __html: instructions }}
+					/>
+				</section>
+			</article>
 		</div>
 	);
 }
