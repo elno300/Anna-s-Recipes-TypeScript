@@ -58,7 +58,6 @@ export default function RecipePage() {
 	} = recipe;
 
 	let ingredientsArray: string[] = [];
-	// ingredientsArray =JSON.parse(ingredients);
 	if (typeof ingredients === 'string') {
 		try {
 			ingredientsArray = JSON.parse(ingredients);
