@@ -10,23 +10,25 @@ import HeaderMenu from '@/components/HeaderMenu';
 // 	weight: '100 900',
 // });
 
-const avenirThin = localFont({
-	src: '../assets/font/AvenirNext-thin.ttf',
-	variable: '--font-geist-mono',
-	weight: '100 900',
-});
+// const avenirThin = localFont({
+// 	src: '../assets/font/AvenirNext-thin.ttf',
+// 	variable: '--font-geist-mono',
+// 	weight: '100 900',
+// });
 
-const sugarMagic = localFont({
-	src: '../assets/font/SugarMagic.ttf',
-	variable: '--sugar-magic',
-	weight: ' 200, 400, 600',
-});
+// const sugarMagic = localFont({
+// 	src: '../assets/font/SugarMagic.ttf',
+// 	variable: '--sugar-magic',
+// 	weight: ' 200, 400, 600',
+// });
 
-const avant = localFont({
-	src: '../assets/font/avantgarde/AVGARDD_2.ttf',
-	variable: '--avant',
-	weight: ' 200, 400, 600',
-});
+// const avant = localFont({
+// 	src: '../assets/font/avantgarde/AVGARDD_2.ttf',
+// 	variable: '--avant',
+// 	weight: ' 200, 400, 600',
+// });
+
+// ${avenirThin.variable} ${sugarMagic.variable} ${avant.variable}
 
 export const metadata: Metadata = {
 	title: 'Recipes app',
@@ -45,9 +47,7 @@ export default function RootLayout({
 				content="width=device-width, initial-scale=1.0"
 			></meta>
 			<RecipeProvider>
-				<body
-					className={`${avenirThin.variable} ${sugarMagic.variable} ${avant.variable} antialiased`}
-				>
+				<body className={`antialiased`}>
 					<HeaderMenu />
 					<main className="">{children}</main>
 				</body>
