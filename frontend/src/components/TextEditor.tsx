@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import ReactQuill from 'react-quill-new';
 
 // https://medium.com/@shubhritik/how-to-use-react-quill-with-images-in-nextjs-699494b1d951
+// Wysiwyg
 
 type TextEditorProps = {
 	id: string;
@@ -16,6 +17,7 @@ const TextEditor: React.FC<TextEditorProps> = ({
 	onChange,
 	id,
 	placeholder = 'Skriv en',
+
 }) => {
 	const [value, setValue] = useState<string>('');
 

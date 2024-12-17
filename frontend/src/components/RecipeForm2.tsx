@@ -7,19 +7,6 @@ import { Button } from './ui/button';
 import { compressFileSize } from './functions';
 import TextEditor from './TextEditor';
 
-// interface postRecipe {
-// 	name: string;
-// 	cook_time: string;
-// 	description: string;
-// 	img_url: string;
-// 	servings: number;
-// 	course_id: number;
-// }
-
-// interface MyObject {
-// 	ingredient: string;
-// }
-
 export default function RecipeForm1() {
 	const [title, setTitle] = useState<string>('');
 	const [cookTime, setCookTime] = useState<string>('');
@@ -72,7 +59,7 @@ export default function RecipeForm1() {
 		// }
 
 		const instructionsToSend =
-		instructions.length > 0 ? instructions : 'Ingen instruktion angiven';
+			instructions.length > 0 ? instructions : 'Ingen instruktion angiven';
 		console.log(instructionsToSend);
 
 		// Skapa FormData objektet
@@ -193,7 +180,6 @@ export default function RecipeForm1() {
 						appearance-none block py-3 mb-4 leading-tight focus:outline-none "
 					/>
 				</div>
-				{/* Cook-time */}
 				<div className="flex flex-wrap -mx-3 mb-6">
 					<div className="w-full md:w-1/3 px-3">
 						<label
@@ -212,7 +198,6 @@ export default function RecipeForm1() {
 							onChange={(event) => setCookTime(event.target.value)}
 						/>
 					</div>
-					{/* Category */}
 					<div className="w-full md:w-1/3 px-3">
 						<label
 							htmlFor="category"
@@ -238,7 +223,6 @@ export default function RecipeForm1() {
 							<option value={6}>Soppa</option>
 						</select>
 					</div>
-					{/* Portions */}
 					<div className="w-full md:w-1/3 px-3 mt-4 md:mt-0">
 						<label
 							htmlFor="servings"
@@ -264,7 +248,6 @@ export default function RecipeForm1() {
 						</select>
 					</div>
 				</div>
-				{/* Description part */}
 				<div className="flex flex-col -mx-3 mb-6">
 					<div className="w-full px-3">
 						<label
@@ -282,7 +265,6 @@ export default function RecipeForm1() {
 							onChange={(event) => setDescription(event.target.value)}
 						/>
 					</div>
-					{/* Instructions */}
 					<div className="-mx-3 mb-6 px-6">
 						<label
 							htmlFor="instructions"
@@ -296,7 +278,6 @@ export default function RecipeForm1() {
 							onChange={handleEditorChange}
 						/>
 					</div>
-					{/* Ingredients */}
 					<div className="-mx-3 mb-6 px-6">
 						<label
 							htmlFor="ingredients"

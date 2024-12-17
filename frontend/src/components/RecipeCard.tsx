@@ -1,5 +1,4 @@
 'use client';
-
 import {
 	Card,
 	CardContent,
@@ -14,7 +13,7 @@ import { useRouter } from 'next/navigation';
 
 interface RecipeProp {
 	recipe: RecipeInterface;
-	className?: string;
+	// className?: string;
 }
 
 function RecipeCard(recipeProp: RecipeProp) {
@@ -28,19 +27,14 @@ function RecipeCard(recipeProp: RecipeProp) {
 		router.push(`/RecipePage/${name}`);
 	}
 
-	let selectedImage;
-	if (img_url === 'image1' || img_url === 'image2' || img_url === 'image3') {
-		selectedImage = `http://localhost:3000/uploads/${img_url}.jpg`;
-	} else {
-		selectedImage = `http://localhost:3000/uploads/${img_url}`;
-	}
+	const selectedImage = `http://localhost:3000/uploads/${img_url}.jpg`;
 
 	return (
 		<>
 			<Card className="bg-slate-200 sm:w-96 shadow-xl overflow-hidden">
 				<div className={styles.imageContainer} onClick={handleRouting}>
 					<img
-						className={styles.recipeImage }
+						className={styles.recipeImage}
 						src={selectedImage}
 						alt={`Bild på ${name}`}
 					/>
