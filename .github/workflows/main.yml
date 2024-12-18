@@ -57,20 +57,20 @@ jobs:
           PORT=4000 npm start &  # Starta frontend i bakgrunden på port 4000
 
       # Vänta tills frontend är tillgänglig på port 4000
-      - name: Wait for frontend to be up
-        run: |
-          npx wait-on http://localhost:4000  # Vänta på att frontend-servern ska vara igång på port 4000
+      # - name: Wait for frontend to be up
+      #   run: |
+      #     npx wait-on http://localhost:4000  # Vänta på att frontend-servern ska vara igång på port 4000
 
-      # Starta backend-servern på port 3000
-      - name: Start backend server on port 3000
-        run: |
-          # Antag att du använder något som `npm run dev` eller `npm start` för att köra backend
-          PORT=3000 npm run start-backend &  # Justera beroende på din backendkonfiguration
+      # # Starta backend-servern på port 3000
+      # - name: Start backend server on port 3000
+      #   run: |
+      #     # Antag att du använder något som `npm run dev` eller `npm start` för att köra backend
+      #     PORT=3000 npm run start-backend &  # Justera beroende på din backendkonfiguration
 
-      # Vänta tills backend är tillgänglig på port 3000
-      - name: Wait for backend to be up
-        run: |
-          npx wait-on http://localhost:3000  # Vänta på att backend-servern ska vara igång på port 3000
+      # # Vänta tills backend är tillgänglig på port 3000
+      # - name: Wait for backend to be up
+      #   run: |
+      #     npx wait-on http://localhost:3000  # Vänta på att backend-servern ska vara igång på port 3000
 
       # Kör Cypress-tester
       - name: Run Cypress tests
