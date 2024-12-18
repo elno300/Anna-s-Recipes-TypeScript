@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS recipes;
 DROP TABLE IF EXISTS recipes_users;
 DROP TABLE IF EXISTS courses;
 
- CREATE TABLE courses (
+CREATE TABLE courses (
     id serial PRIMARY KEY,
     name text UNIQUE NOT NULL);
 

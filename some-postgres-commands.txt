@@ -17,3 +17,6 @@ psql -f init.sql "postgres://postgres:secret@localhost/postgres"
 
 Logga in i postgres
 psql --username=postgres
+
+
+# PGURI=postgres://postgres:<lösenord>@localhost/postgres

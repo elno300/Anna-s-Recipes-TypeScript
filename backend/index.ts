@@ -1,22 +1,3 @@
-// import cors from 'cors';
-// import * as dotenv from 'dotenv';
-// import express from 'express';
-// import recipesRoutes from './routes/recipesRoutes';
-// const multer = require('multer');
-// const upload = multer({ dest: 'uploads/' });
-
-// dotenv.config();
-
-// const app = express();
-
-// app.use(cors());
-// app.use(express.json());
-// app.use(recipesRoutes);
-
-// app.listen(3000, () => {
-// 	console.log('Webbtjänsten kan nu ta emot anrop.');
-// });
-
 import cors from 'cors';
 import * as dotenv from 'dotenv';
 import express from 'express';
@@ -29,6 +10,18 @@ import client from './connectionDb';
 dotenv.config();
 
 const app = express();
+
+// Middleware för att tolka JSON i request-body
+app.use(express.json());
+
+// Middleware för att hantera CORS
+// app.use(cors());
+app.use(
+	cors({
+		origin: 'http://localhost:4000', // Byt till frontend-URL vid produktion
+		methods: ['GET', 'POST', 'PUT', 'DELETE'],
+	})
+);
 
 // Multer, saves files to server
 const storage = multer.diskStorage({
@@ -44,12 +37,6 @@ const storage = multer.diskStorage({
 
 // Skapa Multer middleware
 const upload = multer({ storage: storage });
-
-// Middleware för att tolka JSON i request-body
-app.use(express.json());
-
-// Middleware för att hantera CORS
-app.use(cors());
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
