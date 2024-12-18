@@ -29,14 +29,14 @@ describe('Create new recipe', function () {
 		cy.visit('/addRecipe');
 		cy.get('form').should('be.visible');
 		cy.get('#title').type('Spagetti med köttfärsås');
-		cy.fixture('image5.jpg', 'base64').then((fileContent) => {
-			cy.get('input[type="file"]').attachFile({
-				fileContent,
-				fileName: 'image5.jpg',
-				mimeType: 'image/jpeg',
-				encoding: 'base64',
-			});
-		});
+		// cy.fixture('image5.jpg', 'base64').then((fileContent) => {
+		// 	cy.get('input[type="file"]').attachFile({
+		// 		fileContent,
+		// 		fileName: 'image5.jpg',
+		// 		mimeType: 'image/jpeg',
+		// 		encoding: 'base64',
+		// 	});
+		// });
 		cy.get('#cookTime').type('30');
 		cy.get('#category').select('Pasta');
 		cy.get('#servings').select('3');
@@ -92,31 +92,33 @@ describe('Create new recipe', function () {
 });
 
 // integrationstest
-// it('Check if posting (mockad) data works using a integretion test', function () {
-// 	cy.visit('/');
-// 	cy.wait(1000); // Vänta på get-anropet
-// 	const newRecipe = {
-// 		name: 'Kyckling Alfredo',
-// 		cook_time: '25 min',
-// 		description: 'En krämig och god kyckling Alfredo med pasta och parmesan.',
-// 		img_url: 'image4.jpg',
-// 		servings: 3,
-// 		course_id: 3,
-// 		instructions:
-// 			'["Halvera kycklingfiléerna till 4 tunna filéer.","Vänd i mjölet, salta och peppra.","Finhacka schalottenlök och vitlök.","Fräs mjukt i en stekpanna på medelhög värme tills löken blir mjuk och glansig.","Tillsätt färskost, grädde och kycklingfond. Låt puttra ihop.","Stek kycklingen gyllene i smör.","Vänd ned riven parmesan i såsen.","Skär kycklingen i snygga skivor.","Blanda pastan med såsen och lägg kycklingen ovanpå vid servering.","Toppa med finhackad färsk persilja."]',
-// 		ingredients:
-// 			'["400 g tagliatelle", "2 kycklingfiléer", "0,5 dl vetemjöl","1 schalottenlök"," 2 klyftor vitlök", "2 msk smör, att steka löken i","100 g färskost", "3 dl vispgrädde (eller matlagningsgrädde)","1,5-2 msk koncentrerad kycklingfond","1 dl parmesanost, riven", "salt", "svartpeppar"]',
-// 	};
-// 	cy.request('POST', 'http://localhost:3000/api/new-recipe2', newRecipe).then(
-// 		(response) => {
-// 			expect(response.status).to.eq(201);
-// 		}
-// 	);
-// 	cy.request('GET', 'http://localhost:3000/api/recipes').then((response) => {
-// 		const recipes = response.body;
-// 		cy.log('Recived recipes:', recipes);
-// 	});
-// });
+describe('Integrationtest, posting "mockad" data', function () {
+	it('Check if posting (mockad) data works using a integretion test', function () {
+		cy.visit('/');
+		cy.wait(1000); // Vänta på get-anropet
+		const newRecipe = {
+			name: 'Kyckling Alfredo',
+			cook_time: '25 min',
+			description: 'En krämig och god kyckling Alfredo med pasta och parmesan.',
+			img_url: 'image4.jpg',
+			servings: 3,
+			course_id: 3,
+			instructions:
+				'["Halvera kycklingfiléerna till 4 tunna filéer.","Vänd i mjölet, salta och peppra.","Finhacka schalottenlök och vitlök.","Fräs mjukt i en stekpanna på medelhög värme tills löken blir mjuk och glansig.","Tillsätt färskost, grädde och kycklingfond. Låt puttra ihop.","Stek kycklingen gyllene i smör.","Vänd ned riven parmesan i såsen.","Skär kycklingen i snygga skivor.","Blanda pastan med såsen och lägg kycklingen ovanpå vid servering.","Toppa med finhackad färsk persilja."]',
+			ingredients:
+				'["400 g tagliatelle", "2 kycklingfiléer", "0,5 dl vetemjöl","1 schalottenlök"," 2 klyftor vitlök", "2 msk smör, att steka löken i","100 g färskost", "3 dl vispgrädde (eller matlagningsgrädde)","1,5-2 msk koncentrerad kycklingfond","1 dl parmesanost, riven", "salt", "svartpeppar"]',
+		};
+		cy.request('POST', 'http://localhost:3000/api/new-recipe2', newRecipe).then(
+			(response) => {
+				expect(response.status).to.eq(201);
+			}
+		);
+		cy.request('GET', 'http://localhost:3000/api/recipes').then((response) => {
+			const recipes = response.body;
+			cy.log('Recived recipes:', recipes);
+		});
+	});
+});
 
 // it('Check if it is possible to delete a recipe', function () {
 // 	cy.visit('/');
