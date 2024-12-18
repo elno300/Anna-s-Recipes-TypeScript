@@ -1,4 +1,28 @@
-# https://docs.cypress.io/app/continuous-integration/github-actions
+# # https://docs.cypress.io/app/continuous-integration/github-actions
+# name: Cypress Tests
+
+# on: push
+
+# jobs:
+#   cypress-run:
+#     runs-on: ubuntu-22.04
+
+#     defaults:
+#       run:
+#         working-directory: ./frontend
+
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v4
+#       # Install npm dependencies, cache them correctly
+#       # and run all Cypress tests
+#       - name: Cypress run
+#         uses: cypress-io/github-action@v6
+#         with:
+#           working-directory: ./frontend
+#           build: npm run build
+#           start: npm start
+#           browser: chrome
 name: Cypress Tests
 
 on: push
@@ -9,17 +33,48 @@ jobs:
 
     defaults:
       run:
-        working-directory: ./frontend
+        working-directory: ./frontend # Byt till rätt mapp där din frontend finns
 
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
-      # Install npm dependencies, cache them correctly
-      # and run all Cypress tests
-      - name: Cypress run
+
+      # Installera npm-dependencies och sätt upp Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16' # Använd rätt version av Node.js
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build # Bygg frontend-applikationen
+
+      # Starta frontend på port 4000
+      - name: Start frontend server on port 4000
+        run: |
+          PORT=4000 npm start &  # Starta frontend i bakgrunden på port 4000
+
+      # Vänta tills frontend är tillgänglig på port 4000
+      - name: Wait for frontend to be up
+        run: |
+          npx wait-on http://localhost:4000  # Vänta på att frontend-servern ska vara igång på port 4000
+
+      # Starta backend-servern på port 3000
+      - name: Start backend server on port 3000
+        run: |
+          # Antag att du använder något som `npm run dev` eller `npm start` för att köra backend
+          PORT=3000 npm run start-backend &  # Justera beroende på din backendkonfiguration
+
+      # Vänta tills backend är tillgänglig på port 3000
+      - name: Wait for backend to be up
+        run: |
+          npx wait-on http://localhost:3000  # Vänta på att backend-servern ska vara igång på port 3000
+
+      # Kör Cypress-tester
+      - name: Run Cypress tests
         uses: cypress-io/github-action@v6
         with:
           working-directory: ./frontend
-          build: npm run build
-          start: npm start
-          browser: chrome
+          browser: chrome # Kör testerna i Chrome
