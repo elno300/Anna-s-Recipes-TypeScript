@@ -48,6 +48,7 @@
 
 // Cypress.Commands.add('mount', mount);
 import { mount } from 'cypress/react';
+import 'cypress-file-upload';
 
 declare global {
 	namespace Cypress {

@@ -18,6 +18,7 @@
 				"name": "next"
 			}
 		],
+		"types": ["cypress", "cypress-file-upload"],
 		"baseUrl": "./",
 		"paths": {
 			"@/*": ["./src/*"]
