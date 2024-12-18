@@ -1,6 +1,6 @@
 'use client';
 
-import 'react-quill/dist/quill.snow.css';
+// import 'react-quill/dist/quill.snow.css';
 import React, { useState } from 'react';
 import ReactQuill from 'react-quill-new';
 
@@ -17,7 +17,6 @@ const TextEditor: React.FC<TextEditorProps> = ({
 	onChange,
 	id,
 	placeholder = 'Skriv en',
-
 }) => {
 	const [value, setValue] = useState<string>('');
 

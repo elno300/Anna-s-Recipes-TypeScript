@@ -15,10 +15,25 @@ const nextConfig: NextConfig = {
 			{
 				protocol: 'http',
 				hostname: 'localhost',
-				port: '3000', // Din backend-port
-				pathname: '/uploads/**', // Matcha URL-sökvägen till dina uppladdade filer
+				port: '3000',
+				pathname: '/uploads/**',
 			},
 		],
+	},
+	webpack(config) {
+		// Lägg till stöd för att hantera ttf, eot, woff, svg och bilder
+		config.module.rules.push({
+			test: /\.(ttf|eot|woff|woff2|svg|png|jpg|gif)$/,
+			use: {
+				loader: 'file-loader',
+				options: {
+					publicPath: '/_next/static/',
+					outputPath: 'static/',
+					name: '[name].[ext]',
+				},
+			},
+		});
+		return config;
 	},
 };
 
