@@ -6,7 +6,7 @@ interface RecipeInterface {
 	name: string;
 	cook_time: string;
 	description: string;
-	img_url: string;
+	img_url: string | null;
 	servings: number;
 	course_name: number;
 }
@@ -16,7 +16,7 @@ interface CreateRecipes {
 	name: string;
 	cook_time?: string;
 	description: string;
-	img_url?: string;
+	img_url?: string | null;
 	servings?: number;
 	course_id?: number;
 	instructions: string[];

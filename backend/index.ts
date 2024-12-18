@@ -11,14 +11,13 @@ dotenv.config();
 
 const app = express();
 
-// Middleware för att tolka JSON i request-body
 app.use(express.json());
 
 // Middleware för att hantera CORS
 // app.use(cors());
 app.use(
 	cors({
-		origin: 'http://localhost:4000', // Byt till frontend-URL vid produktion
+		origin: 'http://localhost:4000',
 		methods: ['GET', 'POST', 'PUT', 'DELETE'],
 	})
 );
@@ -57,8 +56,6 @@ app.post(
 
 		const validUserId = user_id ? user_id : null;
 		console.log(req.body);
-		// const instructions = JSON.stringify(instructions);
-		const ingredientsJson = JSON.stringify(ingredients);
 
 		const img_url = req.file ? `${req.file.filename}` : null;
 		console.log('Bildens sökväg i backend,', img_url);
@@ -74,7 +71,7 @@ app.post(
 				servings,
 				course_id,
 				instructions,
-				ingredientsJson,
+				ingredients,
 				validUserId,
 			]
 		);

@@ -12,7 +12,7 @@ export interface RecipeInterface {
 	name: string;
 	cook_time: string;
 	description: string;
-	instructions: string;
+	instructions: string[];
 	ingredients: string[];
 	course_name: string;
 	img_url: string;
@@ -32,7 +32,7 @@ export default function RecipePage() {
 				const response = await fetch(`http://localhost:3000/api/${decoded}`);
 				const result: RecipeInterface = await response.json();
 				setRecipe(result);
-				// const fetchedRecipe = result;
+
 				console.log('result :>> ', result);
 			} catch (error) {
 				console.error('Error fetching recipe:', error);
@@ -57,15 +57,37 @@ export default function RecipePage() {
 		servings,
 	} = recipe;
 
+	console.log('instructioner i recept sidan', instructions);
+	let instructionsArray: string[] = [];
+
+	if (typeof instructions === 'string') {
+		try {
+			instructionsArray = JSON.parse(instructions); // Konvertera JSON-strängen till en array
+			console.log('Parsed instructionsArray:', instructionsArray); // Kontrollera om det fungerar
+		} catch (error) {
+			console.error('Error parsing instructions:', error);
+		}
+	} else if (Array.isArray(instructions)) {
+		instructionsArray = instructions; // Om instructions redan är en array
+		console.log('instructionsArray :>> ', instructionsArray); // Kontrollera vad som finns här
+	} else {
+		console.error(
+			'Instruktionerna är inte en sträng eller en array!',
+			instructions
+		);
+	}
+
 	let ingredientsArray: string[] = [];
 	if (typeof ingredients === 'string') {
 		try {
 			ingredientsArray = JSON.parse(ingredients);
+			console.log('1 :>> ', ingredients);
 		} catch (error) {
 			console.error('Error parsing ingredients:', error);
 		}
 	} else if (Array.isArray(ingredients)) {
 		ingredientsArray = ingredients; // Om ingredients redan är en array
+		console.log('2 :>> ', ingredients);
 	}
 
 	console.log('ingredienser', ingredients);
@@ -131,10 +153,19 @@ export default function RecipePage() {
 					<h3 className="text-4xl lg:text-5xl xl:text-5xl block font-magic">
 						Instruktioner
 					</h3>
-					<div
+					{instructionsArray.length > 0 ? (
+						<ul className={classnames(styles.instructions, 'pt-2 space-y-2')}>
+							{instructionsArray.map((instruction, index) => (
+								<li key={index}>{instruction}</li>
+							))}
+						</ul>
+					) : (
+						<p>Inga instruktioner tillgängliga.</p>
+					)}
+					{/* <div
 						className={classnames(styles.instructions, 'pt-2 space-y-2')}
 						dangerouslySetInnerHTML={{ __html: instructions }}
-					/>
+					/> */}
 				</section>
 			</article>
 		</div>

@@ -5,7 +5,6 @@ import classnames from 'classnames';
 import Image from 'next/image';
 import { Button } from './ui/button';
 import { compressFileSize } from './functions';
-import TextEditor from './TextEditor';
 
 export default function RecipeForm1() {
 	const [title, setTitle] = useState<string>('');
@@ -15,30 +14,73 @@ export default function RecipeForm1() {
 	const [description, setDescription] = useState<string>('');
 	const [image, setImage] = useState<File | null>(null);
 	const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-	const [instructions, setInstructions] = useState<string>('');
+	const [instructions, setInstructions] = useState<string[]>([]);
+	const [instructionsTextAreaValue, setInstructionsTextAreaValue] =
+		useState<string>('');
 	const [ingredients, setIngredients] = useState<string[]>([]);
 	const [textareaValue, setTextareaValue] = useState<string>('');
 
 	const context = useContext(Context);
 	const { setNewRecipe } = context;
 
+	// Hantera ingredienser (delar upp efter radbrytning och sparar i array)
 	const handleIngredientsChange = (
 		event: React.ChangeEvent<HTMLTextAreaElement>
 	) => {
 		setTextareaValue(event.target.value);
 
-		const splitIngredients = textareaValue
+		// Dela upp ingredienser i en array baserat på ny rad
+		const splitIngredients = event.target.value
 			.split('\n')
-			.map((line) => line.trim())
-			.filter((line) => line !== '');
+			.map((line) => line.trim()) // Trimma eventuella extra mellanslag
+			.filter((line) => line !== ''); // Ta bort tomma rader
 
 		setIngredients(splitIngredients);
-		console.log('Sparade ingredienser:', splitIngredients, ingredients);
+		console.log('Sparade ingredienser:', splitIngredients);
 	};
 
-	const handleEditorChange = (value: string) => {
-		setInstructions(value);
+	// Hantera instruktioner (delar upp efter radbrytning och numrerar dem)
+	const handleInstructionsChange = (
+		event: React.ChangeEvent<HTMLTextAreaElement>
+	) => {
+		setInstructionsTextAreaValue(event.target.value);
+
+		// Dela upp instruktionerna i rader och numrera dem
+		const splitInstructions = event.target.value
+			.split('\n')
+			.map((line, index) => `${index + 1}. ${line.trim()}`)
+			.filter((line) => line !== ''); // Ta bort tomma rader
+
+		setInstructions(splitInstructions);
 	};
+
+	// const handleIngredientsChange = (
+	// 	event: React.ChangeEvent<HTMLTextAreaElement>
+	// ) => {
+	// 	setTextareaValue(event.target.value);
+
+	// 	const splitIngredients = textareaValue
+	// 		.split('\n')
+	// 		.map((line) => line.trim())
+	// 		.filter((line) => line !== '');
+
+	// 	setIngredients(splitIngredients);
+	// 	console.log('Sparade ingredienser:', splitIngredients, ingredients);
+	// };
+
+	// const handleInstructionsChange = (
+	// 	event: React.ChangeEvent<HTMLTextAreaElement>
+	// ) => {
+	// 	setInstructionsTextAreaValue(event.target.value);
+
+	// 	// Dela upp instruktionerna i rader och numrera dem
+	// 	const splitInstructions = event.target.value
+	// 		.split('\n')
+	// 		.map((line, index) => `${index + 1}. ${line.trim()}`)
+	// 		.filter((line) => line !== '');
+
+	// 	setInstructions(splitInstructions);
+	// };
 
 	// Hantera filuppladdning
 	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,9 +100,9 @@ export default function RecipeForm1() {
 		// 	throw new Error('Context måste användas inom en Provider');
 		// }
 
-		const instructionsToSend =
-			instructions.length > 0 ? instructions : 'Ingen instruktion angiven';
-		console.log(instructionsToSend);
+		// const instructionsToSend =
+		// 	instructions.length > 0 ? instructions : 'Ingen instruktion angiven';
+		// console.log(instructionsToSend);
 
 		// Skapa FormData objektet
 		const formData = new FormData();
@@ -69,7 +111,7 @@ export default function RecipeForm1() {
 		formData.append('description', description);
 		formData.append('servings', servings);
 		formData.append('course_id', category);
-		formData.append('instructions', instructionsToSend);
+		formData.append('instructions', JSON.stringify(instructions));
 		formData.append('ingredients', JSON.stringify(ingredients));
 		// formData.append('user_id', null);
 
@@ -112,11 +154,12 @@ export default function RecipeForm1() {
 			setCategory('');
 			setServings('');
 			setDescription('');
-			setInstructions('');
+			setInstructions(['']);
 			setImage(null);
 			setPreviewUrl(null);
 			setIngredients(['']);
 			setTextareaValue('');
+			setInstructionsTextAreaValue('');
 		} catch (error) {
 			console.error('Det gick inte att skapa recept:', error);
 		}
@@ -270,14 +313,18 @@ export default function RecipeForm1() {
 							htmlFor="instructions"
 							className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
 						>
-							Instruktioner
+							Instruktioner:
 						</label>
-						<TextEditor
-							placeholder="Skriv instruktionerna i en lista"
+						<textarea
 							id="instructions"
-							onChange={handleEditorChange}
+							name="instructions"
+							placeholder="Skriv en rad för varje ingrediens.. "
+							className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 py-3 px-4 mb-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 h-32 rounded-lg"
+							onChange={handleInstructionsChange}
+							value={instructionsTextAreaValue}
 						/>
 					</div>
+
 					<div className="-mx-3 mb-6 px-6">
 						<label
 							htmlFor="ingredients"
