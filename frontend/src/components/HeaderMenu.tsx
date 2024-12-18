@@ -10,6 +10,8 @@ function HeaderMenu() {
 	const [isHidden, setIsHidden] = useState(false);
 
 	useEffect(() => {
+		if (typeof window === 'undefined') return;
+
 		const handleScroll = () => {
 			const currentScrollPos = window.scrollY;
 			const isScrollingDown = currentScrollPos > lastScrollTop + 10;
