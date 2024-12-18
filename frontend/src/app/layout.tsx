@@ -16,11 +16,11 @@ export const metadata: Metadata = {
 // 	weight: '100 900',
 // });
 
-const avenirThin = localFont({
-	src: '../assets/font/AvenirNext-thin.ttf',
-	variable: '--font-geist-mono',
-	weight: '100 900',
-});
+// const avenirThin = localFont({
+// 	src: '../assets/font/AvenirNext-thin.ttf',
+// 	variable: '--font-geist-mono',
+// 	weight: '100 900',
+// });
 
 const sugarMagic = localFont({
 	src: '../assets/font/SugarMagic.ttf',
@@ -28,11 +28,11 @@ const sugarMagic = localFont({
 	weight: ' 200, 400, 600',
 });
 
-const avant = localFont({
-	src: '../assets/font/avantgarde/AVGARDD_2.ttf',
-	variable: '--avant',
-	weight: ' 200, 400, 600',
-});
+// const avant = localFont({
+// 	src: '../public',
+// 	variable: '--avant',
+// 	weight: ' 200, 400, 600',
+// });
 
 export default function RootLayout({
 	children,
@@ -46,9 +46,7 @@ export default function RootLayout({
 				content="width=device-width, initial-scale=1.0"
 			></meta>
 			<RecipeProvider>
-				<body
-					className={`${avenirThin.variable} ${sugarMagic.variable} ${avant.variable} antialiased`}
-				>
+				<body className={`${sugarMagic.variable} antialiased`}>
 					<HeaderMenu />
 					<main className="">{children}</main>
 				</body>
