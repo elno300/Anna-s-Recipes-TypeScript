@@ -22,4 +22,6 @@ jobs:
           working-directory: ./frontend
           build: npm run build
           start: npm start
+          env:
+            PORT: 4000
           browser: chrome
