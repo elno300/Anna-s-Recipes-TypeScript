@@ -25,16 +25,14 @@ app.use(
 // Multer, saves files to server
 const storage = multer.diskStorage({
 	destination: function (req: Request, file, cb) {
-		// Sätt destinationen där bilderna ska sparas
 		cb(null, './uploads/');
 	},
 	filename: function (req: Request, file, cb) {
-		// Generera ett unikt filnamn (kan anpassas)
-		cb(null, Date.now() + path.extname(file.originalname)); // Filnamn + filändelse
+		cb(null, Date.now() + path.extname(file.originalname));
 	},
 });
 
-// Skapa Multer middleware
+// Multer middleware
 const upload = multer({ storage: storage });
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));

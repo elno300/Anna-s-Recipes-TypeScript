@@ -23,6 +23,53 @@
 #           build: npm run build
 #           start: npm start
 #           browser: chrome
+
+# Test som funkar:
+# name: Cypress Tests
+
+# on: push
+
+# jobs:
+#   cypress-run:
+#     runs-on: ubuntu-22.04
+
+#     defaults:
+#       run:
+#         working-directory: ./frontend
+
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v4
+
+#       # Installera npm-dependencies och sätt upp Node.js
+#       - name: Set up Node.js
+#         uses: actions/setup-node@v3
+#         with:
+#           node-version: '20'
+
+#       - name: Install dependencies
+#         run: npm install
+
+#       - name: Build project
+#         run: npm run build # Bygg frontend-applikationen
+
+#       # Starta frontend på port 4000
+#       - name: Start frontend server on port 4000
+#         run: |
+#           PORT=4000 npm start &  # Starta frontend i bakgrunden på port 4000
+
+#       name: Start backend server on port 3000
+#         working-directory: ./backend
+#         run: |
+#           PORT=3000 npm run dev &
+
+#       # Kör Cypress-tester
+#       - name: Run Cypress tests
+#         uses: cypress-io/github-action@v6
+#         with:
+#           working-directory: ./frontend
+#           browser: chrome # Kör testerna i Chrome
+
 name: Cypress Tests
 
 on: push
@@ -31,53 +78,54 @@ jobs:
   cypress-run:
     runs-on: ubuntu-22.04
 
-    defaults:
-      run:
-        working-directory: ./frontend
-
     steps:
+      # 1. Check out kodbasen
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Installera npm-dependencies och sätt upp Node.js
+      # 2. Sätt upp Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
 
-      - name: Install dependencies
+      # 3. Installera frontend-beroenden
+      - name: Install frontend dependencies
+        working-directory: ./frontend
         run: npm install
 
-      - name: Build project
-        run: npm run build # Bygg frontend-applikationen
+      # 4. Bygg frontend-applikationen
+      - name: Build frontend project
+        working-directory: ./frontend
+        run: npm run build
 
-      # Starta frontend på port 4000
-      - name: Start frontend server on port 4000
+      # 5. Starta frontend-servern på port 4000 i bakgrunden
+      - name: Start frontend server
+        working-directory: ./frontend
         run: |
-          PORT=4000 npm start &  # Starta frontend i bakgrunden på port 4000
+          PORT=4000 npm start &
 
-      # Vänta tills frontend är tillgänglig på port 4000
-      # - name: Wait for frontend to be up
-      #   run: |
-      #     npx wait-on http://localhost:4000  # Vänta på att frontend-servern ska vara igång på port 4000
-      name: Start backend server on port 3000
+      # 6. Vänta tills frontend är igång
+      - name: Wait for frontend to be up
+        run: npx wait-on http://localhost:4000
+
+      # 7. Installera backend-beroenden
+      - name: Install backend dependencies
+        working-directory: ./backend
+        run: npm install
+
+      # 8. Starta backend-servern på port 3000 i bakgrunden
+      - name: Start backend server
         working-directory: ./backend
         run: |
           PORT=3000 npm run dev &
 
-      # Starta backend-servern på port 3000
-      # - name: Start backend server on port 3000
-      #   run: |
-      #     PORT=3000 npm run dev
+      # 9. Vänta tills backend är igång
+      - name: Wait for backend to be up
+        run: npx wait-on http://localhost:3000
 
-      # # Vänta tills backend är tillgänglig på port 3000
-      # - name: Wait for backend to be up
-      #   run: |
-      #     npx wait-on http://localhost:3000  # Vänta på att backend-servern ska vara igång på port 3000
-
-      # Kör Cypress-tester
+      # 10. Kör Cypress-tester
       - name: Run Cypress tests
         uses: cypress-io/github-action@v6
         with:
-          working-directory: ./frontend
-          browser: chrome # Kör testerna i Chrome
+          browser: chrome
