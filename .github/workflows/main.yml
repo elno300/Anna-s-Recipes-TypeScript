@@ -44,10 +44,6 @@ jobs:
         with:
           node-version: '20'
 
-jobs:
-  cypress-run:
-    runs-on: ubuntu-22.04
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
