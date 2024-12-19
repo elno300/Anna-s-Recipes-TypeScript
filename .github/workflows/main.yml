@@ -117,6 +117,8 @@ jobs:
       # 8. Starta backend-servern på port 3000 i bakgrunden
       - name: Start backend server
         working-directory: ./backend
+        env:
+          DATABASE_URL: ${{ secrets.PGURI }}
         run: |
           PORT=3000 npm run dev &
 
