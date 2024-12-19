@@ -33,39 +33,74 @@ jobs:
 
     defaults:
       run:
-        working-directory: ./frontend # Byt till rätt mapp där din frontend finns
+        working-directory: ./frontend
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Installera npm-dependencies och sätt upp Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20' # Använd rätt version av Node.js
+          node-version: '20'
 
-      - name: Install dependencies
+jobs:
+  cypress-run:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Frontend-relaterade kommandon
+      - name: Frontend: Install dependencies
+        working-directory: ./frontend
         run: npm install
 
-      - name: Build project
-        run: npm run build # Bygg frontend-applikationen
+      - name: Frontend: Build project
+        working-directory: ./frontend
+        run: npm run build
 
-      # Starta frontend på port 4000
-      - name: Start frontend server on port 4000
-        run: |
-          PORT=4000 npm start &  # Starta frontend i bakgrunden på port 4000
+      - name: Frontend: Start server
+        working-directory: ./frontend
+        run: PORT=4000 npm start &
+
+      - name: Wait for frontend to be up
+        run: npx wait-on http://localhost:4000
+
+      # Backend-relaterade kommandon
+      - name: Backend: Install dependencies
+        working-directory: ./backend
+        run: npm install
+
+      - name: Backend: Start server
+        working-directory: ./backend
+        run: PORT=3000 npm run dev &
+
+      - name: Wait for backend to be up
+        run: npx wait-on http://localhost:3000
+
+      # - name: Install dependencies
+      #   run: npm install
+
+      # - name: Build project
+      #   run: npm run build
+
+      # # Starta frontend på port 4000
+      # - name: Start frontend server on port 4000
+      #   run: |
+      #     PORT=4000 npm start &  # Starta frontend i bakgrunden på port 4000
+
 
       # Vänta tills frontend är tillgänglig på port 4000
       # - name: Wait for frontend to be up
       #   run: |
       #     npx wait-on http://localhost:4000  # Vänta på att frontend-servern ska vara igång på port 4000
 
-      # # Starta backend-servern på port 3000
+      # Starta backend-servern på port 3000
       # - name: Start backend server on port 3000
       #   run: |
-      #     # Antag att du använder något som `npm run dev` eller `npm start` för att köra backend
-      #     PORT=3000 npm run start-backend &  # Justera beroende på din backendkonfiguration
+      #     PORT=3000 npm run dev
 
       # # Vänta tills backend är tillgänglig på port 3000
       # - name: Wait for backend to be up
