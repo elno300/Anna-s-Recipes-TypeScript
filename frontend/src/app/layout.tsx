@@ -15,11 +15,11 @@ const sugarMagic = localFont({
 	weight: ' 200, 400, 600',
 });
 
-const avant = localFont({
-	src: '../assets/font/avantgarde/AVGARDD_2.ttf',
-	variable: '--avant',
-	weight: ' 200, 400, 600',
-});
+// const avant = localFont({
+// 	src: '../assets/font/avantgarde/AVGARDD_2.ttf',
+// 	variable: '--avant',
+// 	weight: ' 200, 400, 600',
+// });
 
 export default function RootLayout({
 	children,
@@ -32,7 +32,7 @@ export default function RootLayout({
 				name="viewport"
 				content="width=device-width, initial-scale=1.0"
 			></meta>
-			<body className={`${sugarMagic.variable} ${avant.variable} antialiased`}>
+			<body className={`${sugarMagic.variable} antialiased`}>
 				<RecipeProvider>
 					<HeaderMenu />
 					<main className="">{children}</main>
