@@ -118,7 +118,7 @@ jobs:
       - name: Start backend server
         working-directory: ./backend
         env:
-          DATABASE_URL: ${{ secrets.PGURI }}
+          PGURI: ${{ secrets.PGURI }}
         run: |
           PORT=3000 npm run dev &
 
