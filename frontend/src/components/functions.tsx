@@ -9,7 +9,7 @@ export const compressFileSize = async (img: File) => {
 		maxWidthOrHeight: 1920,
 		useWebWorker: true,
 	};
-  
+
 	try {
 		const compressedFile = await imageCompression(img, options);
 		console.log(
@@ -22,3 +22,17 @@ export const compressFileSize = async (img: File) => {
 		console.log(error, 'Det gick inte att omvandla bilden');
 	}
 };
+
+// export const handleInstructionsOrIngredientsChange = (
+// 	event: React.ChangeEvent<HTMLTextAreaElement>
+// ) => {
+// 	const value = event.target.value;
+
+// 	// Dela upp instruktionerna i rader och numrera dem
+// 	const splitInstructions = event.target.value
+// 		.split('\n')
+// 		.map((line, index) => `${index + 1}. ${line.trim()}`)
+// 		.filter((line) => line !== ''); // Ta bort tomma rader
+
+// 	return { value, splitInstructions };
+// };

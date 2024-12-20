@@ -5,5 +5,5 @@ export interface RecipeInterface {
 	description: string;
 	img_url: string;
 	servings: number;
-	course_name: number;
+	course_name: string;
 }

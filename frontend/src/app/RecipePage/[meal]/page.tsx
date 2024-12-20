@@ -105,6 +105,7 @@ export default function RecipePage() {
 						/>
 					</AspectRatio>
 				</div>
+				function parseToArray(input: string | string[], type: 'instructions' | 'ingredients'): string[] {
 
 				<section className="container max-w-4xl flex flex-col align-items-center items-center pl-7 justify-center ">
 					<div className=" text-start max-h-fit">
@@ -130,6 +131,7 @@ export default function RecipePage() {
 					</div>
 				</section>
 			</article>
+
 			<article className="md:flex justify-evenly w-full max-w-7xl md:pt-10 md:pb-20">
 				<section
 					className={classnames('container pl-7', styles.ingredientsContainer)}
@@ -154,18 +156,14 @@ export default function RecipePage() {
 						Instruktioner
 					</h3>
 					{instructionsArray.length > 0 ? (
-						<ul className={classnames(styles.instructions, 'pt-2 space-y-2')}>
+						<ol className={classnames(styles.instructions, 'pt-2 space-y-2')}>
 							{instructionsArray.map((instruction, index) => (
 								<li key={index}>{instruction}</li>
 							))}
-						</ul>
+						</ol>
 					) : (
 						<p>Inga instruktioner tillgängliga.</p>
 					)}
-					{/* <div
-						className={classnames(styles.instructions, 'pt-2 space-y-2')}
-						dangerouslySetInnerHTML={{ __html: instructions }}
-					/> */}
 				</section>
 			</article>
 		</div>

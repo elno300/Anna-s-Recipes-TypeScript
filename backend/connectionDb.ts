@@ -11,4 +11,8 @@ client
 	.then(() => console.log('Connected to the database'))
 	.catch((err) => console.error('Database connection error:', err));
 
+client.on('error', (err) => {
+	console.error('PostgreSQL client error:', err);
+});
+
 export default client;

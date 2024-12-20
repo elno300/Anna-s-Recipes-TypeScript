@@ -1,8 +1,9 @@
-// import RemoveButton from '@/components/RemoveButton';
 import RemoveButton from '../../src/components/RemoveButton';
+// import { useContext } from 'react';
+// import Context from '../../src/Context';
 
 describe('<RemoveButton/>', () => {
-	it('deletes a recipe', () => {
+	it('Button click should delete a recipe', () => {
 		cy.intercept(
 			{
 				method: 'DELETE',
@@ -16,5 +17,13 @@ describe('<RemoveButton/>', () => {
 		).as('delete-recipe');
 
 		cy.mount(<RemoveButton id={4} />);
+
+		cy.get('button[data-testid="remove-button"]').click();
+
+		cy.wait('@delete-recipe');
+		cy.get('[data-testid="confirmation-message"]').should(
+			'contain',
+			'Recpetet med idt 4 är raderat'
+		);
 	});
 });

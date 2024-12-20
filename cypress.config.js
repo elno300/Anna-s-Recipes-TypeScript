@@ -5,4 +5,10 @@ module.exports = {
 			// implement node event listeners here
 		},
 	},
+	component: {
+		devServer: {
+			framework: 'react',
+			bundler: 'webpack',
+		},
+	},
 };

@@ -54,34 +54,6 @@ export default function RecipeForm1() {
 		setInstructions(splitInstructions);
 	};
 
-	// const handleIngredientsChange = (
-	// 	event: React.ChangeEvent<HTMLTextAreaElement>
-	// ) => {
-	// 	setTextareaValue(event.target.value);
-
-	// 	const splitIngredients = textareaValue
-	// 		.split('\n')
-	// 		.map((line) => line.trim())
-	// 		.filter((line) => line !== '');
-
-	// 	setIngredients(splitIngredients);
-	// 	console.log('Sparade ingredienser:', splitIngredients, ingredients);
-	// };
-
-	// const handleInstructionsChange = (
-	// 	event: React.ChangeEvent<HTMLTextAreaElement>
-	// ) => {
-	// 	setInstructionsTextAreaValue(event.target.value);
-
-	// 	// Dela upp instruktionerna i rader och numrera dem
-	// 	const splitInstructions = event.target.value
-	// 		.split('\n')
-	// 		.map((line, index) => `${index + 1}. ${line.trim()}`)
-	// 		.filter((line) => line !== '');
-
-	// 	setInstructions(splitInstructions);
-	// };
-
 	// Hantera filuppladdning
 	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const file = event.target.files?.[0] || null;
@@ -99,10 +71,6 @@ export default function RecipeForm1() {
 		// if (!context) {
 		// 	throw new Error('Context måste användas inom en Provider');
 		// }
-
-		// const instructionsToSend =
-		// 	instructions.length > 0 ? instructions : 'Ingen instruktion angiven';
-		// console.log(instructionsToSend);
 
 		// Skapa FormData objektet
 		const formData = new FormData();

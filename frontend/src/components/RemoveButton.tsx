@@ -31,6 +31,10 @@ export default function RemoveButton({ id }: IdProp) {
 			.then((data) => {
 				console.log(data.message);
 				setNewRecipe(`deleted${id}`);
+			})
+			.catch((error) => {
+				console.error('Error deleting recipe:', error);
+				alert('Något gick fel. Försök igen.');
 			});
 	}
 

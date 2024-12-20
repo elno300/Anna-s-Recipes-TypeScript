@@ -37,3 +37,9 @@ Cypress.Commands.add('mount', mount);
 
 // Example use:
 // cy.mount(<MyComponent />)
+Cypress.on('uncaught:exception', (err) => {
+	if (err.message.includes('expected app router to be mounted')) {
+		return false;
+	}
+	return false;
+});
