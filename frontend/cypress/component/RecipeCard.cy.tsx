@@ -9,7 +9,7 @@ describe('<RecipeCard/>', () => {
 			description: 'En klassisk italiensk rätt.',
 			img_url: 'image5.jpg',
 			servings: 4,
-			course_name: 1,
+			course_name: 'Pasta',
 		};
 		cy.mount(<RecipeCard recipe={mockRecipe} />);
 		cy.get('#CardTitle').should('contain.text', 'Spagetti Carbonara');
