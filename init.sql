@@ -87,7 +87,7 @@ INSERT INTO recipes (
     user_id
 )
 VALUES (
-    'Ärt- och löksoppa',
+    'Ärt och löksoppa',
     'En enkel och läcker soppa med gröna ärter och lök, perfekt för en snabb måltid.',
     '20 min',
     4,

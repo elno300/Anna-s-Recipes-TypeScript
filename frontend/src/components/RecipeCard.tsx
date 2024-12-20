@@ -9,7 +9,7 @@ import {
 import RemoveButton from './RemoveButton';
 import styles from './RecipeCard.module.css';
 import { RecipeInterface } from '@/utils/interface';
-import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/navigation';
 
 interface RecipeProp {
 	recipe: RecipeInterface;
@@ -21,10 +21,10 @@ function RecipeCard(recipeProp: RecipeProp) {
 	const { id, name, description, cook_time, servings, img_url, course_name } =
 		recipeProp.recipe;
 
-	const router = useRouter();
+	// const router = useRouter();
 
 	function handleRouting() {
-		router.push(`/RecipePage/${name}`);
+		// router.push(`/RecipePage/${name}`);
 	}
 
 	const selectedImage = `http://localhost:3000/uploads/${img_url}`;
@@ -41,7 +41,7 @@ function RecipeCard(recipeProp: RecipeProp) {
 				</div>
 				<CardHeader onClick={handleRouting} className="cursor-pointer">
 					<CardTitle id="CardTitle">{name}</CardTitle>
-					<CardDescription>{description}</CardDescription>
+					<CardDescription id="CardDescription">{description}</CardDescription>
 				</CardHeader>
 				<CardContent className="flex justify-between bottom-0 text-sm">
 					<div>

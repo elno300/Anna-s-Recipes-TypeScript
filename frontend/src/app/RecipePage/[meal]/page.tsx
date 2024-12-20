@@ -105,8 +105,6 @@ export default function RecipePage() {
 						/>
 					</AspectRatio>
 				</div>
-				function parseToArray(input: string | string[], type: 'instructions' | 'ingredients'): string[] {
-
 				<section className="container max-w-4xl flex flex-col align-items-center items-center pl-7 justify-center ">
 					<div className=" text-start max-h-fit">
 						<h2 className="text-4xl lg:text-5xl xl:text-7xl block font-magic">
@@ -131,7 +129,6 @@ export default function RecipePage() {
 					</div>
 				</section>
 			</article>
-
 			<article className="md:flex justify-evenly w-full max-w-7xl md:pt-10 md:pb-20">
 				<section
 					className={classnames('container pl-7', styles.ingredientsContainer)}

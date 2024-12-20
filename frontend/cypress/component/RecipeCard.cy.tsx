@@ -7,13 +7,13 @@ describe('<RecipeCard/>', () => {
 			name: 'Spagetti Carbonara',
 			cook_time: '30 minutes',
 			description: 'En klassisk italiensk rätt.',
-			img_url: '/images/carbonara.jpg',
+			img_url: 'image5.jpg',
 			servings: 4,
 			course_name: 1,
 		};
 		cy.mount(<RecipeCard recipe={mockRecipe} />);
-		cy.get('.recipe-card h2').should('contain.text', 'Spagetti Carbonara');
-		cy.get('.recipe-card p').should(
+		cy.get('#CardTitle').should('contain.text', 'Spagetti Carbonara');
+		cy.get('#CardDescription').should(
 			'contain.text',
 			'En klassisk italiensk rätt.'
 		);
