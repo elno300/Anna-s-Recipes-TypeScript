@@ -192,3 +192,5 @@ jobs:
         with:
           browser: chrome
           working-directory: ./frontend
+        env:
+          PG_URI: ${{ secrets.PG_URI }}
