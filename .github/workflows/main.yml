@@ -143,7 +143,6 @@ jobs:
     steps:
       - uses: cypress-io/github-action@v6
 
-    steps:
       # 1. Check out kodbasen
       - name: Checkout code
         uses: actions/checkout@v4
@@ -196,7 +195,6 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           browser: chrome
-
 # name: Cypress Tests
 
 # on: push
