@@ -190,5 +190,4 @@ jobs:
         working-directory: ./frontend
         uses: cypress-io/github-action@v6
         with:
-          projekt: ./frontend
           browser: chrome
