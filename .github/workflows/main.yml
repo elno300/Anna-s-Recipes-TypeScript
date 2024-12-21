@@ -142,6 +142,9 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: cypress-io/github-action@v6
+        with:
+          projekt: ./frontend
+          browser: chrome
 
       # 1. Check out kodbasen
       - name: Checkout code
