@@ -70,6 +70,68 @@
 # #           working-directory: ./frontend
 # #           browser: chrome # Kör testerna i Chrome
 
+# name: Cypress Tests
+
+# on: push
+
+# jobs:
+#   cypress-run:
+#     runs-on: ubuntu-22.04
+
+#     steps:
+#       # 1. Check out kodbasen
+#       - name: Checkout code
+#         uses: actions/checkout@v4
+
+#       # 2. Sätt upp Node.js
+#       - name: Set up Node.js
+#         uses: actions/setup-node@v3
+#         with:
+#           node-version: '20'
+
+#       # 3. Installera frontend-beroenden
+#       - name: Install frontend dependencies
+#         working-directory: ./frontend
+#         run: npm install
+
+#       # 4. Bygg frontend-applikationen
+#       - name: Build frontend project
+#         working-directory: ./frontend
+#         run: npm run build
+
+#       # 5. Starta frontend-servern på port 4000 i bakgrunden
+#       - name: Start frontend server
+#         working-directory: ./frontend
+#         run: |
+#           PORT=4000 npm start &
+
+#       # 6. Vänta tills frontend är igång
+#       - name: Wait for frontend to be up
+#         run: npx wait-on http://localhost:4000
+
+#       # 7. Installera backend-beroenden
+#       - name: Install backend dependencies
+#         working-directory: ./backend
+#         run: npm install
+
+#       # 8. Starta backend-servern på port 3000 i bakgrunden
+#       - name: Start backend server
+#         working-directory: ./backend
+#         env:
+#           PGURI: ${{ secrets.PGURI }}
+#         run: |
+#           PORT=3000 npm run dev &
+
+#       # 9. Vänta tills backend är igång
+#       - name: Wait for backend to be up
+#         run: npx wait-on http://localhost:3000
+
+#       # 10. Kör Cypress-tester
+#       - name: Run Cypress tests
+#         working-directory: ./frontend
+#         # uses: cypress-io/github-action@v6
+#         with:
+#           browser: chrome
 name: Cypress Tests
 
 on: push
@@ -89,46 +151,43 @@ jobs:
         with:
           node-version: '20'
 
-      # 3. Installera frontend-beroenden
-      - name: Install frontend dependencies
-        working-directory: ./frontend
-        run: npm install
-
-      # 4. Bygg frontend-applikationen
-      - name: Build frontend project
-        working-directory: ./frontend
-        run: npm run build
-
-      # 5. Starta frontend-servern på port 4000 i bakgrunden
-      - name: Start frontend server
-        working-directory: ./frontend
-        run: |
-          PORT=4000 npm start &
-
-      # 6. Vänta tills frontend är igång
-      - name: Wait for frontend to be up
-        run: npx wait-on http://localhost:4000
-
-      # 7. Installera backend-beroenden
+      # 3. Installera backend-beroenden
       - name: Install backend dependencies
         working-directory: ./backend
         run: npm install
 
-      # 8. Starta backend-servern på port 3000 i bakgrunden
+      # 4. Starta backend-servern
       - name: Start backend server
         working-directory: ./backend
         env:
           PGURI: ${{ secrets.PGURI }}
         run: |
           PORT=3000 npm run dev &
-
-      # 9. Vänta tills backend är igång
+      # 5. Vänta tills backend är igång
       - name: Wait for backend to be up
         run: npx wait-on http://localhost:3000
 
+      # 6. Installera frontend-beroenden
+      - name: Install frontend dependencies
+        working-directory: ./frontend
+        run: npm install
+
+      # 7. Bygg frontend-applikationen
+      - name: Build frontend project
+        working-directory: ./frontend
+        run: npm run build
+
+      # 8. Starta frontend-servern
+      - name: Start frontend server
+        working-directory: ./frontend
+        run: |
+          PORT=4000 npm start &
+      # 9. Vänta tills frontend är igång
+      - name: Wait for frontend to be up
+        run: npx wait-on http://localhost:4000
+
       # 10. Kör Cypress-tester
       - name: Run Cypress tests
-        working-directory: ./frontend
-        # uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@v6
         with:
           browser: chrome
