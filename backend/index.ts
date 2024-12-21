@@ -5,8 +5,27 @@ import multer from 'multer';
 import path from 'path';
 import { Request, Response } from 'express';
 import recipesRoutes from './routes/recipesRoutes';
-import client from './connectionDb';
 
+// import client from './connectionDb';
+
+import { Client } from 'pg';
+// import * as dotenv from 'dotenv';
+dotenv.config();
+
+const client = new Client({
+	connectionString: process.env.PG_URI,
+});
+
+client
+	.connect()
+	.then(() => console.log('Connected to the database'))
+	.catch((err) => console.error('Database connection error:', err));
+
+client.on('error', (err) => {
+	console.error('PostgreSQL client error:', err);
+});
+
+export default client;
 dotenv.config();
 
 const app = express();
