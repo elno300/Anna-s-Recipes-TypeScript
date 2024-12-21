@@ -166,8 +166,8 @@ jobs:
           PORT=3000 npm run dev &
 
       # 5. Vänta tills backend är igång
-      - name: Wait for backend to be up
-        run: npx wait-on http://localhost:3000
+      # - name: Wait for backend to be up
+      #   run: npx wait-on http://localhost:3000
 
       # 6. Installera frontend-beroenden
       - name: Install frontend dependencies
